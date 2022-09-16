@@ -1,2 +1,2 @@
-# Labs-SEG-2505
-Lab repo
+# Project-SEG-2505
+Project repo
