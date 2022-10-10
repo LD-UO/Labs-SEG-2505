@@ -4,24 +4,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Newchef">
+    tools:context=".Newclient">
 
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="300dp"
+    <Button
+        android:id="@+id/login2"
+        android:layout_width="200dp"
         android:layout_height="61dp"
-        android:hint="Password"
+        android:backgroundTint="@color/red"
+        android:text="Log in"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.831">
+        app:layout_constraintVertical_bias="0.958" />
+
+    <EditText
+        android:id="@+id/fullname2"
+        android:layout_width="300dp"
+        android:layout_height="61dp"
+        android:hint="Full Name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.602">
 
     </EditText>
 
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="300dp"
+        android:layout_height="109dp"
+        android:layout_marginTop="234dp"
+        android:fontFamily="@font/pacifico"
+        android:text="New Client"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/red"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="112dp"
+        android:layout_height="303dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/plates" />
+
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/username2"
         android:layout_width="300dp"
         android:layout_height="61dp"
         android:hint="Username"
@@ -34,55 +72,17 @@
 
     </EditText>
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="112dp"
-        android:layout_height="303dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/plates" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="233dp"
-        android:layout_height="109dp"
-        android:layout_marginTop="234dp"
-        android:fontFamily="@font/pacifico"
-        android:text="New Chef"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/red"
-        android:textSize="50sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView3" />
-
     <EditText
-        android:id="@+id/fullname"
+        android:id="@+id/password2"
         android:layout_width="300dp"
         android:layout_height="61dp"
-        android:hint="Full Name"
+        android:hint="Password"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.602">
+        app:layout_constraintVertical_bias="0.831">
 
     </EditText>
-
-    <Button
-        android:id="@+id/login"
-        android:layout_width="200dp"
-        android:layout_height="61dp"
-        android:backgroundTint="@color/red"
-        android:text="Log in"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.958" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

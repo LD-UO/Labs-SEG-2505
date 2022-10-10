@@ -15,8 +15,8 @@ public class Startuppage extends AppCompatActivity {
         setContentView(R.layout.activity_startuppage);
         getSupportActionBar().hide();
 
-        Button create_btn = (Button)findViewById(R.id.createaccbtn2);
-        create_btn.setOnClickListener(new View.OnClickListener(){
+        Button chefButton = (Button)findViewById(R.id.createaccbtn2);
+        chefButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Startuppage.this,Newchef.class));
@@ -26,6 +26,24 @@ public class Startuppage extends AppCompatActivity {
 
 
         });
+
+        Button clientButton = (Button)findViewById(R.id.createaccbtn);
+        clientButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Startuppage.this, Newclient.class));
+            }
+        });
+
+        Button general = (Button)findViewById(R.id.signinbtn);
+        general.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Startuppage.this, GeneralLogin.class));
+            }
+        });
+
+
 
     }
 

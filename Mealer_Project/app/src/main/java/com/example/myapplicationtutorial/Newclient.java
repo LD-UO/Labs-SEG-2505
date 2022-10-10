@@ -7,24 +7,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class Newchef extends AppCompatActivity {
+public class Newclient extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_newchef);
+        setContentView(R.layout.activity_newclient);
 
-        Button loginButton = (Button)findViewById(R.id.login);
+        Button loginButton = (Button)findViewById(R.id.login2);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Newchef.this, Welcomeback.class);
-                intent.putExtra("userType", "Chef");
+                Intent intent = new Intent(Newclient.this, Welcomeback.class);
+                intent.putExtra("userType", "Client");
                 startActivity(intent);
             }
         });
     }
-
-
 }

@@ -11,28 +11,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="92dp"
-        android:layout_marginTop="253dp"
         android:layout_marginEnd="110dp"
-        android:layout_marginBottom="412dp"
         android:fontFamily="@font/pacifico"
-        android:text="Welcome Back! "
+        android:text="Welcome! You are logged in as "
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/red"
-        android:textSize="50sp"
+        android:textSize="28sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.434"
+        app:layout_constraintHorizontal_bias="0.469"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.176" />
+        app:layout_constraintVertical_bias="0.439" />
 
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="227dp"
         android:layout_height="207dp"
-        app:srcCompat="@drawable/red_minimalist__food_logo__2_"
-        tools:layout_editor_absoluteX="92dp"
-        tools:layout_editor_absoluteY="93dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.072"
+        app:srcCompat="@drawable/red_minimalist__food_logo__2_" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
