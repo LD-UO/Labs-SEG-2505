@@ -13,13 +13,18 @@
         android:theme="@style/Theme.MyApplicationTutorial"
         tools:targetApi="31">
         <activity
-            android:name=".Startuppage"
+            android:name=".Newchef"
             android:exported="false">
-
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-
+        </activity>
+        <activity
+            android:name=".Startuppage"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
         </activity>
         <activity
             android:name=".Welcomeback"
