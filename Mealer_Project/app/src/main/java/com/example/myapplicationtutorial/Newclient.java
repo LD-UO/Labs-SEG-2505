@@ -29,13 +29,13 @@ public class Newclient extends AppCompatActivity {
                 startActivity(intent);
 
                 //creating instance of database
-                DatabaseReference databaseReference;
-                databaseReference = FirebaseDatabase.getInstance().getReference("user");
+                DatabaseReference databaseUser;
+                databaseUser = FirebaseDatabase.getInstance().getReference("user");
                 EditText clientUsername = (EditText)findViewById(R.id.username2);
                 String username = clientUsername.getText().toString().trim();
-                String id = databaseReference.push().getKey();
+                String id = databaseUser.push().getKey();
                 Client client = new Client(id,username);
-                databaseReference.child(client.getId()).setValue(username);
+                databaseUser.child(client.getId()).setValue(username);
             }
         });
     }
