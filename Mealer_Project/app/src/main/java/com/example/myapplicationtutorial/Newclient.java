@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+<<<<<<< HEAD
 import android.widget.EditText;
 
 import com.google.firebase.database.DataSnapshot;
@@ -14,6 +15,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+=======
+>>>>>>> parent of e627b44 (client data setup)
 
 public class Newclient extends AppCompatActivity {
 
@@ -24,7 +27,6 @@ public class Newclient extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newclient);
 
-
         Button loginButton = (Button)findViewById(R.id.login2);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -33,6 +35,7 @@ public class Newclient extends AppCompatActivity {
                 Intent intent = new Intent(Newclient.this, Welcomeback.class);
                 intent.putExtra("userType", "Client");
                 startActivity(intent);
+<<<<<<< HEAD
 
                 //creating instance of database
                 databaseUser = FirebaseDatabase.getInstance().getReference("user");
@@ -61,6 +64,8 @@ public class Newclient extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+=======
+>>>>>>> parent of e627b44 (client data setup)
             }
         });
     }
