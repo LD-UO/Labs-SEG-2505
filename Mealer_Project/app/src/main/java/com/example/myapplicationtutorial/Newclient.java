@@ -38,5 +38,7 @@ public class Newclient extends AppCompatActivity {
                 databaseUser.child(client.getId()).setValue(username);
             }
         });
+
     }
+
 }
