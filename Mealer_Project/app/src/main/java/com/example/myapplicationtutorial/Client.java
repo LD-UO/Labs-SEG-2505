@@ -6,6 +6,4 @@ public class Client extends User{
         this.id = id;
         this.username = username;
     }
-
-
 }
