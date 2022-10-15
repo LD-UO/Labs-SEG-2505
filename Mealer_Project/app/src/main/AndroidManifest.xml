@@ -20,14 +20,14 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Newclient"
+            android:name=".NewClient"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Newchef"
+            android:name=".NewChef"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
