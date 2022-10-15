@@ -7,7 +7,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class Newchef extends AppCompatActivity {
+import com.google.firebase.database.*;
+
+public class NewChef extends AppCompatActivity {
+
+    private DatabaseReference databaseReference;
+    private String username;
+    private String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,12 +25,31 @@ public class Newchef extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Newchef.this, Welcomeback.class);
+                Intent intent = new Intent(NewChef.this, Welcomeback.class);
                 intent.putExtra("userType", "Chef");
                 startActivity(intent);
+
             }
         });
     }
 
+    protected void uploadData(){
+        //Assumes chef attributes are correct
+
+        Chef newChef = new Chef(databaseReference.push().getKey(),username,password);
+
+        databaseReference.child(newChef.getId()).setValue(newChef);
+    }
+
+    protected void onStart(){
+        super.onStart();
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            public void onDataChange(DataSnapshot snapshot) {
+            }
+
+            public void onCancelled(DatabaseError error) {
+            }
+        });
+        }
 
 }

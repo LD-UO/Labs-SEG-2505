@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class Newclient extends AppCompatActivity {
+public class NewClient extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +19,7 @@ public class Newclient extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Newclient.this, Welcomeback.class);
+                Intent intent = new Intent(NewClient.this, Welcomeback.class);
                 intent.putExtra("userType", "Client");
                 startActivity(intent);
             }

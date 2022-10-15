@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1079310271228",
+    "firebase_url": "https://mealer-33f6f-default-rtdb.firebaseio.com",
+    "project_id": "mealer-33f6f",
+    "storage_bucket": "mealer-33f6f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1079310271228:android:eabf4807d19b7028574d79",
+        "android_client_info": {
+          "package_name": "com.example.myapplicationtutorial"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1079310271228-0th3i4ml7a1iup4ekshjsq8093lljcfr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCS-50Srr9ZN3joEv0WoLzOv9HmmzdXVng"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1079310271228-0th3i4ml7a1iup4ekshjsq8093lljcfr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

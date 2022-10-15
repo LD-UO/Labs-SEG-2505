@@ -19,7 +19,7 @@ public class Startuppage extends AppCompatActivity {
         chefButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Startuppage.this,Newchef.class));
+                startActivity(new Intent(Startuppage.this,NewChef.class));
 
 
             }
@@ -31,7 +31,7 @@ public class Startuppage extends AppCompatActivity {
         clientButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Startuppage.this, Newclient.class));
+                startActivity(new Intent(Startuppage.this, NewClient.class));
             }
         });
 

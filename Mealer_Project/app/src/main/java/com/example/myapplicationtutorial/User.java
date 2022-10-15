@@ -5,10 +5,10 @@ public class User {
     protected String id;
     protected String password;
 
-    private String getId(){
+    public String getId(){
         return id;
     }
-    private String getUsername(){
+    public String getUsername(){
         return username;
     }
 }
