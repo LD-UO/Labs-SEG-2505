@@ -12,11 +12,14 @@ import com.google.firebase.database.*;
 public class NewChef extends AppCompatActivity {
 
     private DatabaseReference databaseReference;
-    private String username;
-    private String password;
+    private String username="test";
+    private String password="22";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //creating database reference
+        databaseReference = FirebaseDatabase.getInstance().getReference("Chef");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newchef);
 
@@ -28,7 +31,7 @@ public class NewChef extends AppCompatActivity {
                 Intent intent = new Intent(NewChef.this, Welcomeback.class);
                 intent.putExtra("userType", "Chef");
                 startActivity(intent);
-
+                uploadData();
             }
         });
     }
