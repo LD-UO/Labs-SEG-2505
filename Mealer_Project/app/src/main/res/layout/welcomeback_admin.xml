@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Welcomeback">
+    tools:context=".WelcomebackAdminActivity">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
@@ -26,31 +26,31 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="170dp"
         android:layout_marginTop="340dp"
         android:layout_marginEnd="185dp"
-        android:text="You are Signed in as a Chef"
+        android:text="You are Signed in as an Admin"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="139dp"
-        android:layout_height="396dp"
+        android:id="@+id/imageView7"
+        android:layout_width="186dp"
+        android:layout_height="437dp"
         android:layout_marginBottom="550dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/chef" />
+        app:srcCompat="@drawable/admin" />
 
     <View
-        android:id="@+id/divider8"
+        android:id="@+id/divider9"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginBottom="850dp"
