@@ -17,6 +17,7 @@ public class NewClient extends AppCompatActivity {
     private String password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getSupportActionBar().hide();
         //creating database reference
         databaseReference = FirebaseDatabase.getInstance().getReference("Client");
 

@@ -11,12 +11,15 @@ import com.google.firebase.database.*;
 
 public class NewChef extends AppCompatActivity {
 
+
     private DatabaseReference databaseReference;
     private String username="test";
     private String password="22";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getSupportActionBar().hide();
+        getSupportActionBar().hide();
         //creating database reference
         databaseReference = FirebaseDatabase.getInstance().getReference("Chef");
 
