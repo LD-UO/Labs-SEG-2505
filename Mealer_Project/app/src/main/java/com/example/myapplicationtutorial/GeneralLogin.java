@@ -4,8 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+    import android.widget.EditText;
+import android.widget.Toast;
 
 public class GeneralLogin extends AppCompatActivity {
 
@@ -20,15 +23,24 @@ public class GeneralLogin extends AppCompatActivity {
 
         Button createchef = (Button)findViewById(R.id.createchef);
 
-        Button createclient = (Button)findViewById(R.id.createaccount2);
+        Button createclient = (Button)findViewById(R.id.createclient);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(GeneralLogin.this, WelcomebackAdminActivity.class);
-                // Will need to change the text here to reflect database access!
-                intent.putExtra("userType", "Undecided");
-                startActivity(intent);
+                EditText username = (EditText) findViewById(R.id.Login_Username);
+                EditText password = (EditText) findViewById(R.id.Login_Password);
+                if (username.getText().toString().equals("") || password.getText().toString().equals("")){
+                    Log.d("TAG","Username or Password cannot be empty");
+                    //Toast.makeText(GeneralLogin.this, "Username or Password cannot be empty", Toast.LENGTH_LONG).show();
+                } else{
+                    // "The code below will need to be implemented correctly"
+                    //Intent intent = new Intent(GeneralLogin.this, WelcomebackAdminActivity.class);
+                    // Will need to change the text here to reflect database access!
+                    //intent.putExtra("userType", "Undecided");
+                    //startActivity(intent);
+                }
+
             }
         });
 
