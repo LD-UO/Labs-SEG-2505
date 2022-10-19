@@ -2,28 +2,18 @@ package com.example.myapplicationtutorial;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.google.firebase.database.*;
 
 public class NewChef extends AppCompatActivity {
 
-
-    private DatabaseReference databaseReference;
-    private String username="test";
-    private String password="22";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        getSupportActionBar().hide();
-        getSupportActionBar().hide();
-        //creating database reference
-        databaseReference = FirebaseDatabase.getInstance().getReference("Chef");
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newchef);
 
@@ -47,28 +37,9 @@ public class NewChef extends AppCompatActivity {
                     //intent.putExtra("userType", "Undecided");
                     //startActivity(intent);
                 }
-
             }
         });
     }
 
-    protected void uploadData(){
-        //Assumes chef attributes are correct
-
-        Chef newChef = new Chef(databaseReference.push().getKey(),username,password);
-
-        databaseReference.child(newChef.getId()).setValue(newChef);
-    }
-
-    protected void onStart(){
-        super.onStart();
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            public void onDataChange(DataSnapshot snapshot) {
-            }
-
-            public void onCancelled(DatabaseError error) {
-            }
-        });
-        }
 
 }
