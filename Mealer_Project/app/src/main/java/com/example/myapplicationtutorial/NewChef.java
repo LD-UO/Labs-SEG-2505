@@ -91,6 +91,7 @@ public class NewChef extends AppCompatActivity {
         databaseReference.child(newChef.getId()).setValue(newChef);
     }
 
+
     protected void onStart(){
         super.onStart();
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -156,5 +157,4 @@ public class NewChef extends AppCompatActivity {
 
 
     }
-
 }
