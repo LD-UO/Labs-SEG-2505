@@ -24,7 +24,9 @@ import java.util.List;
 
 public class NewChef extends AppCompatActivity {
     private DatabaseReference databaseReference;
-    private DatabaseReference registerInfo;
+    private DatabaseReference chefInfo;
+    private DatabaseReference clientInfo;
+    private DatabaseReference adminInfo;
 
     private String username;
     private String password;
@@ -37,7 +39,9 @@ public class NewChef extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //creating database reference
         databaseReference = FirebaseDatabase.getInstance().getReference("Chef");
-        registerInfo = FirebaseDatabase.getInstance().getReference();
+        chefInfo = FirebaseDatabase.getInstance().getReference("Chef");
+        clientInfo = FirebaseDatabase.getInstance().getReference("Client");
+        adminInfo = FirebaseDatabase.getInstance().getReference("Admin");
 
         usernames = new ArrayList<String>();
 
@@ -74,11 +78,7 @@ public class NewChef extends AppCompatActivity {
                         uploadData();
                         finish();
                     }
-                    // "The code below will need to be implemented correctly"
-                    //Intent intent = new Intent(GeneralLogin.this, WelcomebackAdminActivity.class);
-                    // Will need to change the text here to reflect database access!
-                    //intent.putExtra("userType", "Undecided");
-                    //startActivity(intent);
+
                 }
             }
         });
@@ -96,25 +96,56 @@ public class NewChef extends AppCompatActivity {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        registerInfo.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
                 usernames.clear();
-                for (DataSnapshot postSnapshot : snapshot.getChildren()){
-                    // Copies two of them for some reason
-                    String test = postSnapshot.child("username").getValue().toString();
-                    Log.d("TEST", test);
-                    usernames.add(test);
-                }
+                chefInfo.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot chef) {
+
+                        for (DataSnapshot chefShot : chef.getChildren()){
+                            // Copies two of them for some reason
+                            String test = chefShot.child("username").getValue().toString();
+                            usernames.add(test);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+                clientInfo.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot client) {
+                        for (DataSnapshot clientShot : client.getChildren()){
+                            // Copies two of them for some reason
+                            String test = clientShot.child("username").getValue().toString();
+
+                            usernames.add(test);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+                adminInfo.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot admin) {
+                        for (DataSnapshot adminShot : admin.getChildren()){
+                            // Copies two of them for some reason
+                            String test = adminShot.child("username").getValue().toString();
+                            usernames.add(test);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
 
             @Override
@@ -122,6 +153,8 @@ public class NewChef extends AppCompatActivity {
 
             }
         });
+
+
     }
 
 }
