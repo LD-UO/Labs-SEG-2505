@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-    import android.widget.EditText;
+import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.android.material.snackbar.Snackbar;
 
 public class GeneralLogin extends AppCompatActivity {
 
@@ -49,6 +51,7 @@ public class GeneralLogin extends AppCompatActivity {
             public void onClick(View view) {
                 Intent chef_intent = new Intent(GeneralLogin.this,NewChef.class);
                 startActivity(chef_intent);
+                Snackbar registered = Snackbar.make(view, "Registered", Snackbar.LENGTH_LONG);
 
             }
 

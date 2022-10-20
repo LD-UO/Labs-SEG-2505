@@ -24,6 +24,8 @@ import java.util.List;
 
 public class NewChef extends AppCompatActivity {
     private DatabaseReference databaseReference;
+    private DatabaseReference registerInfo;
+
     private String username;
     private String password;
     private String fullname;
@@ -35,6 +37,8 @@ public class NewChef extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //creating database reference
         databaseReference = FirebaseDatabase.getInstance().getReference("Chef");
+        registerInfo = FirebaseDatabase.getInstance().getReference();
+
         usernames = new ArrayList<String>();
 
         setContentView(R.layout.activity_newchef);
@@ -57,10 +61,11 @@ public class NewChef extends AppCompatActivity {
                     password = passwordnewchef.getText().toString().trim();
                     fullname = fullnamenewchef.getText().toString().trim();
                     boolean addData = true;
-                    for (int i = 0; i < usernames.size() / 2; i++){
+                    for (int i = 0; i < usernames.size(); i++){
                         if (username.equals(usernames.get(i))){
-                            Snackbar test = Snackbar.make(view, "Username is already in use", Snackbar.LENGTH_LONG);
-                            test.show();
+                            Snackbar usernameInUse = Snackbar.make(view, "Username is already in use", Snackbar.LENGTH_LONG);
+                            usernameInUse.show();
+                            // Make sure that the user does not get to sign up with a duplicate username
                             addData = false;
                         }
                     }
@@ -89,6 +94,18 @@ public class NewChef extends AppCompatActivity {
     protected void onStart(){
         super.onStart();
         databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        registerInfo.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 usernames.clear();
