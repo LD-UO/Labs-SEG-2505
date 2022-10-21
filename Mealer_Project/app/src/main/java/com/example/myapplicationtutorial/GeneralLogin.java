@@ -30,6 +30,7 @@ public class GeneralLogin extends AppCompatActivity {
     List<String> chefPass;
     List<String> clientPass;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getSupportActionBar().hide();
@@ -55,24 +56,41 @@ public class GeneralLogin extends AppCompatActivity {
             public void onClick(View view) {
                 EditText username = (EditText) findViewById(R.id.Login_Username);
                 EditText password = (EditText) findViewById(R.id.Login_Password);
+                // This will keep track of whether the account could be found
+                boolean loginfound = false;
+
                 if (username.getText().toString().equals("") || password.getText().toString().equals("")){
                     Log.d("TAG","Username or Password cannot be empty");
                     //Toast.makeText(GeneralLogin.this, "Username or Password cannot be empty", Toast.LENGTH_LONG).show();
+
                 } else{
                     if (username.getText().toString().trim().equals("admin") && password.getText().toString().trim().equals("543")){
                         // Start intent for the admin
-                        Log.d("SIGNIN", "Admin was able to sign in");
+                        Intent Login = new Intent(GeneralLogin.this, Welcomeback.class);
+                        Login.putExtra("usertype", "admin");
+                        loginfound = true;
+                        startActivity(Login);
+                        username.setText("");
+                        password.setText("");
                     }
 
                     for (String userNameToCheck : clientUsername){
                         if (userNameToCheck.equals(username.getText().toString().trim())){
                             if (clientPass.get(clientUsername.indexOf(userNameToCheck)).equals(password.getText().toString().trim())){
                                 // Start intent for the client
-                                Log.d("SIGNIN", "Client was able to sign in");
+                                Intent Login = new Intent(GeneralLogin.this, Welcomeback.class);
+                                Login.putExtra("usertype", "client");
+                                startActivity(Login);
+                                username.setText("");
+                                password.setText("");
+                                loginfound = true;
+                            } else {
+                                // Displaying the snackbar for an incorrect password
+                                Snackbar incorrect = Snackbar.make(view, "Incorrect Username or Password", Snackbar.LENGTH_LONG);
+                                incorrect.show();
                             }
 
-                            // Display snackbar for incorrect password
-                            Log.d("SIGNIN", "Incorrect password or username");
+
                         }
                     }
 
@@ -80,21 +98,28 @@ public class GeneralLogin extends AppCompatActivity {
                         if (userNameToCheck.equals(username.getText().toString().trim())){
                             if (chefPass.get(chefUsername.indexOf(userNameToCheck)).equals(password.getText().toString().trim())){
                                 // Start intent for the client
-                                Log.d("SIGNIN", "Chef was able to sign in");
+                                Intent Login = new Intent(GeneralLogin.this, Welcomeback.class);
+                                Login.putExtra("usertype", "chef");
+                                startActivity(Login);
+                                username.setText("");
+                                password.setText("");
+                                loginfound = true;
 
 
+                            } else {
+                                Snackbar incorrect = Snackbar.make(view, "Incorrect Username or Password", Snackbar.LENGTH_LONG);
+                                incorrect.show();
                             }
-
-                            // Display snackbar for incorrect password, PUT THIS STATEMENT IN AN ELSE
-                            Log.d("SIGNIN", "Incorrect password or username");
                         }
                     }
 
-                    // If the username cannot be found which occurs if neither of the statements above run, then username
-                    // does not exist
-                    // Will put a snackbar here
-                    // Implement admin sign in feature
-                    Log.d("SIGNIN", "User does not exist");
+                    // Display snackbar for incorrect password, PUT THIS STATEMENT IN AN ELSE
+                    if (!loginfound) {
+                        Snackbar incorrect = Snackbar.make(getWindow().getDecorView().findViewById(android.R.id.content), "Incorrect username or password or account doesn't exist", Snackbar.LENGTH_LONG);
+                        incorrect.show();
+                        Log.d("TAG", getWindow().getDecorView().findViewById(android.R.id.content) + "");
+                        //Toast.makeText(getApplicationContext(), "Incorrect username or password", Toast.LENGTH_LONG).show();
+                    }
                 }
 
             }

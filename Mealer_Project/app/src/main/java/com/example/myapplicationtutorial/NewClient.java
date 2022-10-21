@@ -59,7 +59,11 @@ public class NewClient extends AppCompatActivity {
                         passwordnewclient.getText().toString().trim().isEmpty() || confirmpasswordnewclient.getText().toString().trim().isEmpty()) {
                     Log.d("TAG","Username or Password cannot be empty");
                     //Toast.makeText(GeneralLogin.this, "Username or Password cannot be empty", Toast.LENGTH_LONG).show();
-                } else{
+                } else if (passwordnewclient.getText().toString().equals(confirmpasswordnewclient.getText().toString()) == false){
+                    Snackbar passwordsDontMatch = Snackbar.make(view, "Passwords do not match", Snackbar.LENGTH_LONG);
+                    passwordsDontMatch.show();
+
+                }else{
                     username = usernamenewclient.getText().toString().trim();
                     password = passwordnewclient.getText().toString().trim();
                     fullname = fullnamenewclient.getText().toString().trim();

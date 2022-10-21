@@ -15,11 +15,15 @@ public class Welcomeback extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcomeback2);
         Intent intent = getIntent();
-        String userType = intent.getStringExtra("userType");
+        String userType = intent.getStringExtra("usertype");
         TextView welcomeBackMessage = (TextView) findViewById(R.id.textView2);
         TextView subheading = (TextView) findViewById(R.id.textView8);
-        subheading.setText("You are signed in as a " + userType);
+        subheading.setText("Welcome! You are signed in as a " + userType);
 
 
+
+    }
+    public void logoff(){
+        finish();
     }
 }

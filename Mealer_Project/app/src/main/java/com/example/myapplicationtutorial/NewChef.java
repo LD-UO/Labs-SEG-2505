@@ -60,7 +60,11 @@ public class NewChef extends AppCompatActivity {
                         passwordnewchef.getText().toString().trim().isEmpty() || confirmpasswordnewchef.getText().toString().trim().isEmpty()) {
                     Log.d("TAG","Username or Password cannot be empty");
                     //Toast.makeText(GeneralLogin.this, "Username or Password cannot be empty", Toast.LENGTH_LONG).show();
-                } else{
+                } else if (passwordnewchef.getText().toString().equals(confirmpasswordnewchef.getText().toString()) == false){
+                    Snackbar passwordsDontMatch = Snackbar.make(view, "Passwords do not match", Snackbar.LENGTH_LONG);
+                    passwordsDontMatch.show();
+
+                }else{
                     username = usernamenewchef.getText().toString().trim();
                     password = passwordnewchef.getText().toString().trim();
                     fullname = fullnamenewchef.getText().toString().trim();
