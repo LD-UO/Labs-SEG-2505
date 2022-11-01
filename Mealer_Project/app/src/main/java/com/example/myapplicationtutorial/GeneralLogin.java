@@ -66,7 +66,7 @@ public class GeneralLogin extends AppCompatActivity {
                 } else{
                     if (username.getText().toString().trim().equals("admin") && password.getText().toString().trim().equals("543")){
                         // Start intent for the admin
-                        Intent Login = new Intent(GeneralLogin.this, Welcomeback.class);
+                        Intent Login = new Intent(GeneralLogin.this, WelcomebackAdminActivity.class);
                         Login.putExtra("usertype", "admin");
                         loginfound = true;
                         startActivity(Login);
