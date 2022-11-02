@@ -3,8 +3,11 @@ package com.example.myapplicationtutorial;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -21,6 +24,7 @@ public class WelcomebackAdminActivity extends AppCompatActivity {
     DatabaseReference complaint_reference;
     ArrayList<Complaint> complaints = new ArrayList<Complaint>();
     ArrayAdapter<Complaint> adapter;
+    Button comp_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,35 +32,17 @@ public class WelcomebackAdminActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcomeback_admin);
 
-        complaintlist = (ListView) findViewById(R.id.complaint_list);
-        complaint_reference = FirebaseDatabase.getInstance().getReference("Complaint");
-    }
-    protected void onStart(){
-        super.onStart();
-        complaint_reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                complaints.clear();
-                for (DataSnapshot complaintSnapshot: snapshot.getChildren()){
-                    boolean addressed = complaintSnapshot.child("addressed").getValue(Boolean.class);
-                    String chefUsername = complaintSnapshot.child("chefUsername").getValue(String.class);
-                    String clientUsername = complaintSnapshot.child("clientUsername").getValue(String.class);
-                    String description = complaintSnapshot.child("description").getValue(String.class);
-                    String endDate = complaintSnapshot.child("endDate").getValue(String.class);
-                    Complaint complaint = new Complaint(description, chefUsername, clientUsername, endDate);
-                    complaints.add(complaint);
-                }
-                //adapter = new ArrayAdapter<Complaint>(getApplicationContext(), android.R.layout.simple_list_item_1, complaints);
-                //complaintlist.setAdapter(adapter);
-                ComplaintList complaintAdapter = new ComplaintList(WelcomebackAdminActivity.this, complaints);
-                complaintlist.setAdapter(complaintAdapter);
-            }
+
+        comp_button = (Button) findViewById(R.id.button4);
+        comp_button.setOnClickListener(new View.OnClickListener(){
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+            public void onClick(View view) {
+                Intent com_page_intent = new Intent(WelcomebackAdminActivity.this,Complaints_page.class);
+                startActivity(com_page_intent);
             }
         });
     }
 
-}
+    }
+

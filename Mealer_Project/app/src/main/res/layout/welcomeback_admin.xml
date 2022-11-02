@@ -62,16 +62,38 @@
         app:layout_constraintVertical_bias="0.421"
         app:srcCompat="@drawable/admin" />
 
-    <ListView
-        android:id="@+id/complaint_list"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="600dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="400dp"
+        android:background="#FF0000"
+        android:orientation="vertical"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.717" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="135dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="125dp"
+            android:backgroundTint="#FFFFFF"
+            android:text="View Complaints"
+            android:textAlignment="center"
+            android:textColor="#FF0000" />
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="135dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="125dp"
+            android:backgroundTint="#FFFFFF"
+            android:elevation="5dp"
+            android:text="Suspend Cook"
+            android:textAlignment="center"
+            android:textColor="#FF0000" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
