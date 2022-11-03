@@ -52,13 +52,10 @@ public class Complaints_page extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 complaints.clear();
                 for (DataSnapshot complaintSnapshot : snapshot.getChildren()) {
-                    boolean addressed = complaintSnapshot.child("addressed").getValue(Boolean.class);
                     String chefUsername = complaintSnapshot.child("chefUsername").getValue(String.class);
-                    String clientUsername = complaintSnapshot.child("clientUsername").getValue(String.class);
                     String description = complaintSnapshot.child("description").getValue(String.class);
                     String endDate = complaintSnapshot.child("endDate").getValue(String.class);
                     String id = complaintSnapshot.child("id").getValue(String.class);
-
                     Complaint complaint = new Complaint(description, chefUsername, endDate, id);
                     complaints.add(complaint);
                 }
@@ -86,7 +83,6 @@ public class Complaints_page extends AppCompatActivity {
             });
         }
     private void showUpdateDeleteDialog(String description, String chefUsername,final String id) {
-
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.view_complaint_diaglog, null);
@@ -117,7 +113,7 @@ public class Complaints_page extends AppCompatActivity {
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                deleteComplaint(    id);
+                deleteComplaint(id);
                 b.dismiss();
             }
         });
@@ -138,8 +134,7 @@ public class Complaints_page extends AppCompatActivity {
     }
 
     private boolean deleteComplaint(String id) {
-        Log.d("deleteComplaint","reached");
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("complaint").child(id);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Complaint").child(id);
 
         databaseReference.removeValue();
 
