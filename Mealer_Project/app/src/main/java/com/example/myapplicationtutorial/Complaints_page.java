@@ -56,8 +56,11 @@ public class Complaints_page extends AppCompatActivity {
                     String description = complaintSnapshot.child("description").getValue(String.class);
                     String endDate = complaintSnapshot.child("endDate").getValue(String.class);
                     String id = complaintSnapshot.child("id").getValue(String.class);
+                    boolean isAssessed = (Boolean) complaintSnapshot.child("addressed").getValue();
                     Complaint complaint = new Complaint(description, chefUsername, endDate, id);
-                    complaints.add(complaint);
+                    if (!isAssessed) {
+                        complaints.add(complaint);
+                    }
                 }
                 adapter = new ArrayAdapter<Complaint>(getApplicationContext(), android.R.layout.simple_list_item_1, complaints);
                 complaintlist.setAdapter(adapter);
@@ -94,7 +97,7 @@ public class Complaints_page extends AppCompatActivity {
         final Button buttonDelete = (Button) dialogView.findViewById(R.id.buttonDelete);
 
 
-        dialogBuilder.setTitle(description);
+        dialogBuilder.setTitle(chefUsername);
         final AlertDialog b = dialogBuilder.create();
         b.show();
 
@@ -121,7 +124,7 @@ public class Complaints_page extends AppCompatActivity {
 
     private void approveComplaint(String description, String chefUsername,
                                   String endDate, String id) {
-        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("complaint").child(id);
+        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("Complaint").child(id);
 
         Complaint complaint = new Complaint( description,  chefUsername,
                  endDate,  id);
