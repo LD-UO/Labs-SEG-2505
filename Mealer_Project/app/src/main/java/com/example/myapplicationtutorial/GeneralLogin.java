@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
@@ -18,18 +17,25 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class GeneralLogin extends AppCompatActivity {
 
     DatabaseReference chefReference;
     DatabaseReference clientReference;
+    DatabaseReference complaintReference;
     List<String> chefUsername;
     List<String> clientUsername;
     List<String> chefPass;
     List<String> clientPass;
-
+    List<String> complaintUsername;
+    List<String> complaintEndDate;
+    List<Boolean> complaintAddressed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +45,18 @@ public class GeneralLogin extends AppCompatActivity {
 
         chefReference = FirebaseDatabase.getInstance().getReference("Chef");
         clientReference = FirebaseDatabase.getInstance().getReference("Client");
+        complaintReference = FirebaseDatabase.getInstance().getReference("Complaint");
 
         chefPass = new ArrayList<String>();
         chefUsername = new ArrayList<String>();
         clientPass = new ArrayList<String>();
         clientUsername = new ArrayList<String>();
+
+        // List of all the relevant complaint attributes
+        complaintUsername = new ArrayList<String>();
+        complaintEndDate = new ArrayList<String>();
+        complaintAddressed = new ArrayList<Boolean>();
+
 
         Button loginButton = (Button)findViewById(R.id.login3);
 
@@ -60,7 +73,7 @@ public class GeneralLogin extends AppCompatActivity {
                 boolean loginfound = false;
 
                 if (username.getText().toString().equals("") || password.getText().toString().equals("")){
-                    Log.d("TAG","Username or Password cannot be empty");
+
                     //Toast.makeText(GeneralLogin.this, "Username or Password cannot be empty", Toast.LENGTH_LONG).show();
 
                 } else{
@@ -98,12 +111,68 @@ public class GeneralLogin extends AppCompatActivity {
                         if (userNameToCheck.equals(username.getText().toString().trim())){
                             if (chefPass.get(chefUsername.indexOf(userNameToCheck)).equals(password.getText().toString().trim())){
                                 // Start intent for the client
-                                Intent Login = new Intent(GeneralLogin.this, Welcomeback.class);
-                                Login.putExtra("usertype", "chef");
-                                startActivity(Login);
-                                username.setText("");
-                                password.setText("");
-                                loginfound = true;
+                                // Need to check and see if the client has been banned or not
+                                if (complaintUsername.contains(userNameToCheck)){
+                                    // This means that there has been a complaint made
+
+                                    // Need to check if it has been addressed or not
+                                    if (complaintAddressed.get(complaintUsername.indexOf(userNameToCheck))){
+                                        // This means the complaint has been addressed, need to check for the end date now
+                                        String endDate = complaintEndDate.get(complaintUsername.indexOf(userNameToCheck));
+                                        Calendar calendar = Calendar.getInstance();
+                                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.CANADA);
+                                        try {
+                                            Date d1 = sdf.parse(endDate);
+                                            String currentDate = sdf.format(calendar.getTime());
+                                            Date d2 = sdf.parse(currentDate);
+
+                                            if (d1.after(d2)) {
+                                                // This means that the end date still has not arrived, no logging in!
+                                                Log.d("BAN", "You are banned until " + endDate);
+                                                Intent Login = new Intent(GeneralLogin.this, Welcomeback.class);
+                                                Login.putExtra("banned", endDate);
+                                                startActivity(Login);
+                                                username.setText("");
+                                                password.setText("");
+                                                loginfound = true;
+                                            } else {
+                                                Intent Login = new Intent(GeneralLogin.this, Welcomeback.class);
+                                                Login.putExtra("usertype", "chef");
+                                                startActivity(Login);
+                                                username.setText("");
+                                                password.setText("");
+                                                loginfound = true;
+                                            }
+
+                                        } catch (Exception e){
+                                            Log.d("BAN", "You are banned indefinitely");
+                                            Intent Login = new Intent(GeneralLogin.this, Welcomeback.class);
+                                            Login.putExtra("banned", "indefinitely");
+                                            startActivity(Login);
+                                            username.setText("");
+                                            password.setText("");
+                                            loginfound = true;
+                                        }
+
+
+                                    } else {
+                                        // This means the complaint has not been addressed and thus the chef is not banned
+                                        Intent Login = new Intent(GeneralLogin.this, Welcomeback.class);
+                                        Login.putExtra("usertype", "chef");
+                                        startActivity(Login);
+                                        username.setText("");
+                                        password.setText("");
+                                        loginfound = true;
+                                    }
+                                } else {
+                                    // If there has been no complaints, the chef can log in just fine
+                                    Intent Login = new Intent(GeneralLogin.this, Welcomeback.class);
+                                    Login.putExtra("usertype", "chef");
+                                    startActivity(Login);
+                                    username.setText("");
+                                    password.setText("");
+                                    loginfound = true;
+                                }
 
 
                             } else {
@@ -117,7 +186,6 @@ public class GeneralLogin extends AppCompatActivity {
                     if (!loginfound) {
                         Snackbar incorrect = Snackbar.make(getWindow().getDecorView().findViewById(android.R.id.content), "Incorrect username or password or account doesn't exist", Snackbar.LENGTH_LONG);
                         incorrect.show();
-                        Log.d("TAG", getWindow().getDecorView().findViewById(android.R.id.content) + "");
                         //Toast.makeText(getApplicationContext(), "Incorrect username or password", Toast.LENGTH_LONG).show();
                     }
                 }
@@ -163,6 +231,28 @@ public class GeneralLogin extends AppCompatActivity {
                     chefPass.add(password);
 
 
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        complaintReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                complaintUsername.clear();
+                complaintEndDate.clear();
+                for (DataSnapshot complaintShot : snapshot.getChildren()){
+                    String username = complaintShot.child("chefUsername").getValue().toString();
+                    String endDate = complaintShot.child("endDate").getValue().toString();
+                    boolean isAssessed = (Boolean) complaintShot.child("addressed").getValue();
+
+                    complaintUsername.add(username);
+                    complaintEndDate.add(endDate);
+                    complaintAddressed.add(isAssessed);
                 }
             }
 
