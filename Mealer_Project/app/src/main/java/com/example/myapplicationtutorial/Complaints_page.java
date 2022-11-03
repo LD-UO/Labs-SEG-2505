@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -58,11 +59,11 @@ public class Complaints_page extends AppCompatActivity {
                     String endDate = complaintSnapshot.child("endDate").getValue(String.class);
                     String id = complaintSnapshot.child("id").getValue(String.class);
 
-                    Complaint complaint = new Complaint(description, chefUsername, clientUsername, endDate, id);
+                    Complaint complaint = new Complaint(description, chefUsername, endDate, id);
                     complaints.add(complaint);
                 }
-                //adapter = new ArrayAdapter<Complaint>(getApplicationContext(), android.R.layout.simple_list_item_1, complaints);
-                //complaintlist.setAdapter(adapter);
+                adapter = new ArrayAdapter<Complaint>(getApplicationContext(), android.R.layout.simple_list_item_1, complaints);
+                complaintlist.setAdapter(adapter);
                 ComplaintList complaintAdapter = new ComplaintList(Complaints_page.this, complaints);
                 complaintlist.setAdapter(complaintAdapter);
             }
@@ -79,17 +80,16 @@ public class Complaints_page extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     Complaint complaint = complaints.get(i);
-                    showUpdateDeleteDialog(complaint.getDescription(),complaint.getChefUsername(),
-                            complaint.getClientUsername(),complaint.getEndDate(),complaint.getId());
+                    showUpdateDeleteDialog(complaint.getDescription(),complaint.getChefUsername(),complaint.getId());
+                //return true;
                 }
             });
         }
-    private void showUpdateDeleteDialog(String description, String chefUsername, String clientUsername,
-                                        String endDate,final String id) {
+    private void showUpdateDeleteDialog(String description, String chefUsername,final String id) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.complaint_list, null);
+        final View dialogView = inflater.inflate(R.layout.view_complaint_diaglog, null);
         dialogBuilder.setView(dialogView);
 
         //make these in xml
@@ -108,7 +108,7 @@ public class Complaints_page extends AppCompatActivity {
 
                 String endDate = editTextEndDate.getText().toString();
 
-                    approveComplaint(description,chefUsername,clientUsername,endDate,id);
+                    approveComplaint(description,chefUsername,endDate,id);
                     b.dismiss();
 
             }
@@ -117,25 +117,28 @@ public class Complaints_page extends AppCompatActivity {
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                deleteProduct(id);
+                deleteComplaint(    id);
                 b.dismiss();
             }
         });
     }
 
-    private void approveComplaint(String description, String chefUsername, String clientUsername,
+    private void approveComplaint(String description, String chefUsername,
                                   String endDate, String id) {
         DatabaseReference dR = FirebaseDatabase.getInstance().getReference("complaint").child(id);
 
-        Complaint complaint = new Complaint( description,  chefUsername,  clientUsername,
+        Complaint complaint = new Complaint( description,  chefUsername,
                  endDate,  id);
+
+        complaint.approve();
 
         dR.setValue(complaint);
 
         Toast.makeText(getApplicationContext(), "Complaint Approved", Toast.LENGTH_LONG).show();
     }
 
-    private boolean deleteProduct(String id) {
+    private boolean deleteComplaint(String id) {
+        Log.d("deleteComplaint","reached");
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("complaint").child(id);
 
         databaseReference.removeValue();

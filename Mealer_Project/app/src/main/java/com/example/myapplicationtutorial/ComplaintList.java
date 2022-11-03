@@ -29,7 +29,6 @@ public class ComplaintList extends ArrayAdapter<Complaint> {
         TextView description = (TextView) listViewItem.findViewById(R.id.description);
         Complaint complaint = complaints.get(position);
         chefUsername.setText(complaint.getChefUsername());
-        clientUsername.setText(clientUsername.getText().toString() + complaint.getClientUsername());
         description.setText(complaint.getDescription());
 
         return listViewItem;
