@@ -1,14 +1,19 @@
 package com.example.myapplicationtutorial;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,21 +40,25 @@ public class Complaints_page extends AppCompatActivity {
         complaint_reference = FirebaseDatabase.getInstance().getReference("Complaint");
 
         complaintlist = (ListView) findViewById(R.id.complaint_list);
+
+        onItemClick();
         }
 
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
         complaint_reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 complaints.clear();
-                for (DataSnapshot complaintSnapshot: snapshot.getChildren()){
+                for (DataSnapshot complaintSnapshot : snapshot.getChildren()) {
                     boolean addressed = complaintSnapshot.child("addressed").getValue(Boolean.class);
                     String chefUsername = complaintSnapshot.child("chefUsername").getValue(String.class);
                     String clientUsername = complaintSnapshot.child("clientUsername").getValue(String.class);
                     String description = complaintSnapshot.child("description").getValue(String.class);
                     String endDate = complaintSnapshot.child("endDate").getValue(String.class);
-                    Complaint complaint = new Complaint(description, chefUsername, clientUsername, endDate);
+                    String id = complaintSnapshot.child("id").getValue(String.class);
+
+                    Complaint complaint = new Complaint(description, chefUsername, clientUsername, endDate, id);
                     complaints.add(complaint);
                 }
                 //adapter = new ArrayAdapter<Complaint>(getApplicationContext(), android.R.layout.simple_list_item_1, complaints);
@@ -64,5 +73,74 @@ public class Complaints_page extends AppCompatActivity {
             }
         });
     }
+        private void onItemClick() {
 
+            complaintlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Complaint complaint = complaints.get(i);
+                    showUpdateDeleteDialog(complaint.getDescription(),complaint.getChefUsername(),
+                            complaint.getClientUsername(),complaint.getEndDate(),complaint.getId());
+                }
+            });
+        }
+    private void showUpdateDeleteDialog(String description, String chefUsername, String clientUsername,
+                                        String endDate,final String id) {
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.complaint_list, null);
+        dialogBuilder.setView(dialogView);
+
+        //make these in xml
+        final EditText editTextEndDate = (EditText) dialogView.findViewById(R.id.endDate);
+        final Button buttonApprove = (Button) dialogView.findViewById(R.id.buttonApprove);
+        final Button buttonDelete = (Button) dialogView.findViewById(R.id.buttonDelete);
+
+
+        dialogBuilder.setTitle(description);
+        final AlertDialog b = dialogBuilder.create();
+        b.show();
+
+        buttonApprove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String endDate = editTextEndDate.getText().toString();
+
+                    approveComplaint(description,chefUsername,clientUsername,endDate,id);
+                    b.dismiss();
+
+            }
+        });
+
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteProduct(id);
+                b.dismiss();
+            }
+        });
+    }
+
+    private void approveComplaint(String description, String chefUsername, String clientUsername,
+                                  String endDate, String id) {
+        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("complaint").child(id);
+
+        Complaint complaint = new Complaint( description,  chefUsername,  clientUsername,
+                 endDate,  id);
+
+        dR.setValue(complaint);
+
+        Toast.makeText(getApplicationContext(), "Complaint Approved", Toast.LENGTH_LONG).show();
+    }
+
+    private boolean deleteProduct(String id) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("complaint").child(id);
+
+        databaseReference.removeValue();
+
+        Toast.makeText(getApplicationContext(), "Complaint Deleted", Toast.LENGTH_LONG).show();
+        return true;
+    }
 }
