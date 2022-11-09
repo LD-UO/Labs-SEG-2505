@@ -6,66 +6,57 @@
     android:layout_height="match_parent"
     tools:context="NewClient">
 
-    <View
-        android:id="@+id/divider2"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_marginTop="-80dp"
-        android:layout_marginBottom="700dp"
-        android:background="@color/red"
-        android:backgroundTint="#F10000"
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="450dp"
+        android:text="Already Have an Account? "
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="151dp"
-        android:layout_height="339dp"
-        android:layout_marginEnd="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/newacc__1_" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="183dp"
+        android:layout_marginTop="500dp"
+        android:layout_marginEnd="183dp"
+        android:text="Sign In"
+        android:textColor="#40C4FF"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/login2"
         android:layout_width="200dp"
         android:layout_height="61dp"
-        android:backgroundTint="@color/red"
+        android:layout_marginBottom="130dp"
+        android:backgroundTint="#4CA3D3"
         android:text="Register"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/confirmpasswordnewch" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="300dp"
-        android:layout_height="109dp"
-        android:fontFamily="@font/pacifico"
-        android:text="New Client"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/red"
-        android:textSize="50sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.37" />
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/usernamenewch"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="165dp"
-        android:backgroundTint="#F44336"
+        android:layout_height="61dp"
+        android:layout_marginBottom="100dp"
+        android:backgroundTint="@color/Maincolor"
         android:hint="Username"
         app:boxBackgroundColor="#FFFFFF"
-        app:boxStrokeColor="#FF2828"
+        app:boxStrokeColor="@color/Maincolor"
         app:boxStrokeWidth="2dp"
         app:endIconTint="#F6E7E7"
+        app:hintTextColor="@color/Maincolor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -83,12 +74,11 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="435dp"
-        android:layout_marginBottom="19dp"
-        android:backgroundTint="#F44336"
+        android:layout_marginTop="200dp"
+        android:backgroundTint="@color/Maincolor"
         android:hint="Confirm Password"
         app:boxBackgroundColor="#FFFFFF"
-        app:boxStrokeColor="#FF2828"
+        app:boxStrokeColor="@color/Maincolor"
         app:boxStrokeWidth="2dp"
         app:endIconTint="#F6E7E7"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -97,6 +87,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:inputType="textPassword"
             android:id="@+id/confirmpasswordnewclient"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -108,13 +99,14 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="290dp"
-        android:backgroundTint="#F44336"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@color/Maincolor"
         android:hint="Password"
         app:boxBackgroundColor="#FFFFFF"
-        app:boxStrokeColor="#FF2828"
+        app:boxStrokeColor="@color/Maincolor"
         app:boxStrokeWidth="2dp"
         app:endIconTint="#F6E7E7"
+        app:hintTextColor="@color/Maincolor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -131,14 +123,15 @@
         android:id="@+id/fullnamenewch"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
-        android:backgroundTint="#F44336"
+        android:layout_height="61dp"
+        android:layout_marginBottom="250dp"
+        android:backgroundTint="@color/Maincolor"
         android:hint="Full Name"
         app:boxBackgroundColor="#FFFFFF"
-        app:boxStrokeColor="#FF2828"
+        app:boxStrokeColor="@color/Maincolor"
         app:boxStrokeWidth="2dp"
         app:endIconTint="#F6E7E7"
+        app:hintTextColor="@color/Maincolor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -150,5 +143,57 @@
             android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="418dp"
+        android:layout_height="172dp"
+        android:background="@drawable/header_background"
+        android:orientation="vertical"
+        android:paddingLeft="65dp"
+        android:paddingTop="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="278dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:padding="5dp"
+            android:text="Welcome"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/white"
+            android:textSize="50sp" />
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="70dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Fill the Form Below"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="148dp"
+        android:layout_height="194dp"
+        android:layout_marginStart="275dp"
+        android:layout_marginTop="575dp"
+        android:src="@drawable/client"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

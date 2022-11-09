@@ -6,48 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".NewChef">
 
-    <View
-        android:id="@+id/divider6"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_marginTop="-80dp"
-        android:layout_marginBottom="700dp"
-        android:background="@color/red"
-        android:backgroundTint="#F10000"
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="450dp"
+        android:text="Already Have an Account? "
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="151dp"
-        android:layout_height="339dp"
-        android:layout_marginEnd="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/newacc__1_" />
-
     <TextView
-        android:id="@+id/textView4"
-        android:layout_width="233dp"
-        android:layout_height="109dp"
-        android:fontFamily="@font/pacifico"
-        android:text="New Chef"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/red"
-        android:textSize="50sp"
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="183dp"
+        android:layout_marginTop="500dp"
+        android:layout_marginEnd="183dp"
+        android:text="Sign In"
+        android:textColor="#40C4FF"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.387" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/login"
         android:layout_width="200dp"
         android:layout_height="61dp"
-        android:backgroundTint="@color/red"
+        android:layout_marginBottom="150dp"
+        android:backgroundTint="#4CA3D3"
         android:text="Register"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,13 +49,14 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="165dp"
-        android:backgroundTint="#F44336"
+        android:layout_marginBottom="100dp"
+        android:backgroundTint="@color/Maincolor"
         android:hint="Username"
         app:boxBackgroundColor="#FFFFFF"
-        app:boxStrokeColor="#FF2828"
+        app:boxStrokeColor="@color/Maincolor"
         app:boxStrokeWidth="2dp"
         app:endIconTint="#F6E7E7"
+        app:hintTextColor="@color/Maincolor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -83,11 +74,11 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="420dp"
-        android:backgroundTint="#F44336"
+        android:layout_marginTop="170dp"
+        android:backgroundTint="@color/Maincolor"
         android:hint="Confirm Password"
         app:boxBackgroundColor="#FFFFFF"
-        app:boxStrokeColor="#FF2828"
+        app:boxStrokeColor="@color/Maincolor"
         app:boxStrokeWidth="2dp"
         app:endIconTint="#F6E7E7"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -96,6 +87,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:inputType="textPassword"
             android:id="@+id/confirmpasswordnewclient"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -107,19 +99,20 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="295dp"
-        android:backgroundTint="#F44336"
+        android:layout_marginTop="25dp"
+        android:backgroundTint="@color/Maincolor"
         android:hint="Password"
         app:boxBackgroundColor="#FFFFFF"
-        app:boxStrokeColor="#FF2828"
+        app:boxStrokeColor="@color/Maincolor"
         app:boxStrokeWidth="2dp"
         app:endIconTint="#F6E7E7"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="@+id/linearLayout2">
 
         <com.google.android.material.textfield.TextInputEditText
+
             android:id="@+id/passwordnewclient"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -131,11 +124,11 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:backgroundTint="#F44336"
+        android:layout_marginBottom="250dp"
+        android:backgroundTint="@color/Maincolor"
         android:hint="Full Name"
         app:boxBackgroundColor="#FFFFFF"
-        app:boxStrokeColor="#FF2828"
+        app:boxStrokeColor="@color/Maincolor"
         app:boxStrokeWidth="2dp"
         app:endIconTint="#F6E7E7"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -149,6 +142,56 @@
             android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="443dp"
+        android:layout_height="179dp"
+        android:background="@drawable/header_background"
+        android:orientation="vertical"
+        android:paddingTop="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.538"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:paddingLeft="20dp"
+            android:text="Welcome"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/white"
+            android:textSize="50sp" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="Fill the Form Below"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="179dp"
+        android:layout_height="186dp"
+        android:layout_marginStart="250dp"
+        android:layout_marginTop="560dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.6"
+        app:srcCompat="@drawable/boy_chef" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

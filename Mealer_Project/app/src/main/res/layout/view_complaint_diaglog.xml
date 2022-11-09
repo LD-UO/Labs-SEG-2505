@@ -4,24 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/Maincolor"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
-            android:id="@+id/imageView9"
-            android:layout_width="182dp"
-            android:layout_height="127dp"
-            android:layout_marginStart="114dp"
-            android:layout_marginEnd="115dp"
-            android:layout_marginBottom="50dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/icon" />
+        android:layout_height="637dp"
+        android:background="#4CA3D3">
 
         <TextView
             android:id="@+id/textView"
@@ -33,8 +22,8 @@
             android:fontFamily="sans-serif"
             android:text="Leave date blank for permanent ban"
             android:textAlignment="center"
-            android:textColor="#000000"
-            android:textSize="16sp"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -47,9 +36,10 @@
             android:layout_marginStart="160dp"
             android:layout_marginBottom="360dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/red"
+            android:backgroundTint="#FFFFFF"
             android:text="Approve"
             android:textAlignment="center"
+            android:textColor="#4CA3D3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -61,8 +51,9 @@
             android:layout_height="50dp"
             android:layout_marginEnd="160dp"
             android:layout_marginBottom="360dp"
-            android:backgroundTint="#FF0000"
+            android:backgroundTint="#FEFFFF"
             android:text="Delete"
+            android:textColor="#4CA3D3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -73,10 +64,11 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_marginBottom="580dp"
-            android:backgroundTint="#FF0000"
+            android:backgroundTint="#FFFFFF"
             android:hint="(yyyy-mm-dd)"
             android:textAlignment="center"
-            android:textColor="#000000"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

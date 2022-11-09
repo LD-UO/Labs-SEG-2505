@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -37,6 +38,7 @@ public class NewChef extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         //creating database reference
         databaseReference = FirebaseDatabase.getInstance().getReference("Chef");
         chefInfo = FirebaseDatabase.getInstance().getReference("Chef");
@@ -49,6 +51,15 @@ public class NewChef extends AppCompatActivity {
 
         Button loginButton = (Button)findViewById(R.id.login);
         onStart();
+        TextView signininstead = (TextView) findViewById(R.id.textView15);
+        signininstead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goback = new Intent(NewChef.this,GeneralLogin.class);
+                startActivity(goback);
+
+            }
+        });
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

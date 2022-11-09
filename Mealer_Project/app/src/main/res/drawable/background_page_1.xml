@@ -1,0 +1,54 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="1440dp"
+    android:height="2960dp"
+    android:viewportWidth="1080"
+    android:viewportHeight="2220">
+  <group>
+    <clip-path
+        android:pathData="M0.2,0L1079.8,0L1079.8,2219L0.2,2219ZM0.2,0"/>
+    <path
+        android:pathData="M0.2,0L1079.8,0L1079.8,2226.5L0.2,2226.5ZM0.2,0"
+        android:fillColor="#ffffff"
+        android:fillType="nonZero"/>
+    <path
+        android:pathData="M0.2,0L1079.8,0L1079.8,2219L0.2,2219ZM0.2,0"
+        android:fillColor="#ffffff"
+        android:fillType="nonZero"/>
+    <path
+        android:pathData="M0.2,0L1079.8,0L1079.8,2219L0.2,2219ZM0.2,0"
+        android:fillColor="#4ca3d3"
+        android:fillType="nonZero"/>
+  </group>
+  <group>
+    <clip-path
+        android:pathData="M0.2,2205L1079.8,2205L1079.8,2219L0.2,2219ZM0.2,2205"/>
+    <path
+        android:pathData="M-181.4,3056.6L1261.7,3056.6L1261.7,2205.8L-181.4,2205.8ZM-181.4,3056.6"
+        android:fillColor="#ffffff"
+        android:fillType="nonZero"/>
+  </group>
+  <group>
+    <clip-path
+        android:pathData="M0.2,1533L300,1533L300,2215L0.2,2215ZM0.2,1533"/>
+    <path
+        android:pathData="M299.8,1533.7L299.8,2214.2L-181.4,2214.2C-181.4,1899.9 19.5,1632.7 299.8,1533.7ZM299.8,1533.7"
+        android:fillColor="#ffffff"
+        android:fillType="nonZero"/>
+  </group>
+  <group>
+    <clip-path
+        android:pathData="M294,1492.2L781,1492.2L781,2215L294,2215ZM294,1492.2"/>
+    <path
+        android:pathData="M780.6,2214.2L294.6,2214.2L294.6,1535.8C369.9,1509.2 455.9,1492.8 540.2,1492.8C624.4,1492.8 705.5,1507.2 780.6,1533.7ZM780.6,2214.2"
+        android:fillColor="#ffffff"
+        android:fillType="nonZero"/>
+  </group>
+  <group>
+    <clip-path
+        android:pathData="M775,1532L1079.8,1532L1079.8,2215L775,2215ZM775,1532"/>
+    <path
+        android:pathData="M1261.7,2214.2L775.4,2214.2L775.4,1532C1055.6,1631 1261.7,1899.9 1261.7,2214.2ZM1261.7,2214.2"
+        android:fillColor="#ffffff"
+        android:fillType="nonZero"/>
+  </group>
+</vector>
