@@ -135,7 +135,7 @@ public class GeneralLogin extends AppCompatActivity {
                                             if (d1.after(d2)) {
                                                 // This means that the end date still has not arrived, no logging in!
                                                 Log.d("BAN", "You are banned until " + endDate);
-                                                Intent Login = new Intent(GeneralLogin.this,Welcomeback.class );
+                                                Intent Login = new Intent(GeneralLogin.this, Welcomeback_chef.class );
                                                 Login.putExtra("banned", endDate);
 
                                                 startActivity(Login);
@@ -143,7 +143,7 @@ public class GeneralLogin extends AppCompatActivity {
                                                 password.setText("");
                                                 loginfound = true;
                                             } else {
-                                                Intent Login = new Intent(GeneralLogin.this, Welcomeback.class);
+                                                Intent Login = new Intent(GeneralLogin.this, Welcomeback_chef.class);
                                                 Login.putExtra("usertype", "chef");
                                                 Login.putExtra("username",userNameToCheck);
                                                 startActivity(Login);
@@ -154,7 +154,7 @@ public class GeneralLogin extends AppCompatActivity {
 
                                         } catch (Exception e){
                                             Log.d("BAN", "You are banned indefinitely");
-                                            Intent Login = new Intent(GeneralLogin.this, Welcomeback.class);
+                                            Intent Login = new Intent(GeneralLogin.this, Welcomeback_chef.class);
                                             Login.putExtra("banned", "indefinitely");
                                             startActivity(Login);
                                             username.setText("");
@@ -165,7 +165,7 @@ public class GeneralLogin extends AppCompatActivity {
 
                                     } else {
                                         // This means the complaint has not been addressed and thus the chef is not banned
-                                        Intent Login = new Intent(GeneralLogin.this, Welcomeback.class);
+                                        Intent Login = new Intent(GeneralLogin.this, Welcomeback_chef.class);
                                         Login.putExtra("usertype", "chef");
                                         Login.putExtra("username", username.getText().toString());
                                         startActivity(Login);
@@ -175,7 +175,7 @@ public class GeneralLogin extends AppCompatActivity {
                                     }
                                 } else {
                                     // If there has been no complaints, the chef can log in just fine
-                                    Intent Login = new Intent(GeneralLogin.this, Welcomeback.class);
+                                    Intent Login = new Intent(GeneralLogin.this, Welcomeback_chef.class);
                                     Login.putExtra("usertype", "chef");
                                     Login.putExtra("username", username.getText().toString());
                                     startActivity(Login);

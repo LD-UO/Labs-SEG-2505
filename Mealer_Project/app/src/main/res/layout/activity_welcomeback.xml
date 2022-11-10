@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_page_1__6_"
-    tools:context=".Welcomeback">
+    tools:context=".Welcomeback_chef">
 
   <ImageView
       android:id="@+id/imageView4"

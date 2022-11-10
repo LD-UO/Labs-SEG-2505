@@ -55,7 +55,7 @@
         </activity>
 
         <activity
-            android:name=".Welcomeback"
+            android:name=".Welcomeback_chef"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

@@ -10,10 +10,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-public class Welcomeback extends AppCompatActivity {
-    ImageView log_off_btn;
+public class Welcomeback_chef extends AppCompatActivity {
+    Button menu_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +19,7 @@ public class Welcomeback extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcomeback2);
         Intent intent = getIntent();
-        log_off_btn = (ImageView) findViewById(R.id.imageView6);
+        menu_btn = (Button) findViewById(R.id.Menu);
 
         // This will try and print the user that logs in if they are not banned!
         try {
@@ -44,11 +42,11 @@ public class Welcomeback extends AppCompatActivity {
                 subheading.setText("You are banned until " + endDate);
             }
         }
-        log_off_btn.setOnClickListener(new View.OnClickListener(){
+        menu_btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent com_page_intent = new Intent(Welcomeback.this,GeneralLogin.class);
-                startActivity(com_page_intent);
+                //need to change this to access the menu page for a specific chef
+                
             }
         });
 
