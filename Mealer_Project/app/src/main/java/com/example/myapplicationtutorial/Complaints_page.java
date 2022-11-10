@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -30,19 +31,28 @@ public class Complaints_page extends AppCompatActivity {
     DatabaseReference complaint_reference;
     ArrayList<Complaint> complaints = new ArrayList<Complaint>();
     ArrayAdapter<Complaint> adapter;
-
+    ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getSupportActionBar().hide();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_complaints_page);
+        back = (ImageView) findViewById(R.id.button);
 
         complaint_reference = FirebaseDatabase.getInstance().getReference("Complaint");
 
         complaintlist = (ListView) findViewById(R.id.complaint_list);
 
         onItemClick();
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // This should go back to the admin main menu, should not log them out
+                finish();
+            }
+        });
         }
 
     protected void onStart() {
@@ -62,8 +72,7 @@ public class Complaints_page extends AppCompatActivity {
                         complaints.add(complaint);
                     }
                 }
-                adapter = new ArrayAdapter<Complaint>(getApplicationContext(), android.R.layout.simple_list_item_1, complaints);
-                complaintlist.setAdapter(adapter);
+
                 ComplaintList complaintAdapter = new ComplaintList(Complaints_page.this, complaints);
                 complaintlist.setAdapter(complaintAdapter);
             }

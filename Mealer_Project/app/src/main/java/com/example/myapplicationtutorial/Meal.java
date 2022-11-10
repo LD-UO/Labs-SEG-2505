@@ -4,13 +4,28 @@ public class Meal {
     private String name;
     private String type;
     private String cuisine;
-    private String id;
-    private String chefUsername;
 
-    public Meal(String name,String type,String cuisine){
+    // Probably won't need the ID if we already have the chef's username
+    //private String id;
+    private String chefUsername;
+    private String allergens;
+    private String price;
+    private String description;
+    private String ingredients;
+    private boolean onMenu;
+
+
+    public Meal(String name,String type,String cuisine, String allergens, boolean onMenu, String price, String chefUsername, String description, String ingredients){
         this.name=name;
         this.type=type;
         this.cuisine=cuisine;
+        this.allergens = allergens;
+        this.chefUsername = chefUsername;
+        this.price = price;
+        this.description = description;
+        this.ingredients = ingredients;
+        this.onMenu = onMenu;
+
     }
 
     public String getName() {
@@ -25,11 +40,24 @@ public class Meal {
         return cuisine;
     }
 
-    public String getId() {
-        return id;
-    }
-
     public String getChefUsername() {
         return chefUsername;
     }
+
+    public String getAllergens() {
+        return allergens;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public String getIngredients() {
+        return ingredients;
+    }
+
 }

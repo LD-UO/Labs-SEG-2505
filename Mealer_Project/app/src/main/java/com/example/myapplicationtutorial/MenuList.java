@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class MenuList {
+public class MenuList extends ArrayAdapter<Meal>{
 
         private Activity context;
         List<Meal> meals;
@@ -24,11 +24,11 @@ public class MenuList {
             LayoutInflater inflater = context.getLayoutInflater();
             View listViewItem = inflater.inflate(R.layout.menu_list, null, true);
 //
-//            TextView chefUsername = (TextView) listViewItem.findViewById(R.id.chefUsername);
-//            TextView name = (TextView) listViewItem.findViewById(R.id.name);
-//            Meal meal = meals.get(position);
-//            chefUsername.setText(meal.getChefUsername());
-//            name.setText(meal.getName());
+            //TextView chefUsername = (TextView) listViewItem.findViewById(R.id.chefUsername);
+            TextView name = (TextView) listViewItem.findViewById(R.id.meal_name);
+            Meal meal = meals.get(position);
+            //chefUsername.setText(meal.getChefUsername());
+            name.setText(meal.getName());
 
             return listViewItem;
         }
@@ -37,4 +37,4 @@ public class MenuList {
 
     }
 
-}
+

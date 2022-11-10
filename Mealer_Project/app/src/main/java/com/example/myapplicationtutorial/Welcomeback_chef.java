@@ -20,6 +20,7 @@ public class Welcomeback_chef extends AppCompatActivity {
         setContentView(R.layout.activity_welcomeback2);
         Intent intent = getIntent();
         menu_btn = (Button) findViewById(R.id.Menu);
+        ImageView logoff = (ImageView) findViewById(R.id.imageView6);
 
         // This will try and print the user that logs in if they are not banned!
         try {
@@ -42,11 +43,21 @@ public class Welcomeback_chef extends AppCompatActivity {
                 subheading.setText("You are banned until " + endDate);
             }
         }
+
+
         menu_btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 //need to change this to access the menu page for a specific chef
-                
+                Intent menu_page_intent = new Intent(Welcomeback_chef.this, MealPage.class);
+                startActivity(menu_page_intent);
+            }
+        });
+
+        logoff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logoff();
             }
         });
 
