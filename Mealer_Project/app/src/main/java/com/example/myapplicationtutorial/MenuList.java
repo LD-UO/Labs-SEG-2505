@@ -25,10 +25,10 @@ public class MenuList {
             View listViewItem = inflater.inflate(R.layout.menu_list, null, true);
 
             TextView chefUsername = (TextView) listViewItem.findViewById(R.id.chefUsername);
-            TextView description = (TextView) listViewItem.findViewById(R.id.description);
+            TextView name = (TextView) listViewItem.findViewById(R.id.description);
             Meal meal = meals.get(position);
             chefUsername.setText(meal.getChefUsername());
-            description.setText(meal.getName());
+            name.setText(meal.getName());
 
             return listViewItem;
         }
