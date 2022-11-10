@@ -23,12 +23,12 @@ public class MenuList {
         public View getView(int position, View convertView, ViewGroup parent){
             LayoutInflater inflater = context.getLayoutInflater();
             View listViewItem = inflater.inflate(R.layout.menu_list, null, true);
-
-            TextView chefUsername = (TextView) listViewItem.findViewById(R.id.chefUsername);
-            TextView name = (TextView) listViewItem.findViewById(R.id.description);
-            Meal meal = meals.get(position);
-            chefUsername.setText(meal.getChefUsername());
-            name.setText(meal.getName());
+//
+//            TextView chefUsername = (TextView) listViewItem.findViewById(R.id.chefUsername);
+//            TextView name = (TextView) listViewItem.findViewById(R.id.name);
+//            Meal meal = meals.get(position);
+//            chefUsername.setText(meal.getChefUsername());
+//            name.setText(meal.getName());
 
             return listViewItem;
         }
