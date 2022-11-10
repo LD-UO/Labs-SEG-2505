@@ -54,6 +54,13 @@
                 android:value=""/>
         </activity>
 
+        <activity android:name=".MealPage"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value=""/>
+        </activity>
+
         <activity
             android:name=".Welcomeback_chef"
             android:exported="false">
