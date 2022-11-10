@@ -7,8 +7,8 @@
     <LinearLayout
         android:id="@+id/menu_list"
         style="@style/Widget.AppCompat.ListView.DropDown"
-        android:layout_width="293dp"
-        android:layout_height="264dp"
+        android:layout_width="215dp"
+        android:layout_height="105dp"
         android:background="#FFFFFF"
         android:orientation="vertical"
         android:scrollbars="vertical"
@@ -19,5 +19,10 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.417">
 
+        <TextView
+            android:id="@+id/meal_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Name" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
