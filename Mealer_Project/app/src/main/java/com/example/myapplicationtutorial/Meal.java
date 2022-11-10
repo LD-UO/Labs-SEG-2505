@@ -4,6 +4,7 @@ public class Meal {
     private String name;
     private String type;
     private String cuisine;
+    private String id;
 
     public Meal(String name,String type,String cuisine){
         this.name=name;
@@ -21,5 +22,9 @@ public class Meal {
 
     public String getCuisine() {
         return cuisine;
+    }
+
+    public String getId() {
+        return id;
     }
 }
