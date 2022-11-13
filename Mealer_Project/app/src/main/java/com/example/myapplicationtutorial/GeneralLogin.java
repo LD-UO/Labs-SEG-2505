@@ -80,7 +80,6 @@ public class GeneralLogin extends AppCompatActivity {
                     if (username.getText().toString().trim().equals("admin") && password.getText().toString().trim().equals("543")){
                         // Start intent for the admin
                         Intent Login = new Intent(GeneralLogin.this, WelcomebackAdminActivity.class);
-                        Login.putExtra("usertype", "admin");
                         loginfound = true;
                         startActivity(Login);
                         username.setText("");
@@ -94,7 +93,6 @@ public class GeneralLogin extends AppCompatActivity {
                                 // Start intent for the client
                                 Intent Login = new Intent(GeneralLogin.this,Welcomeback_client.class);
                                 Login.putExtra("username",username.getText().toString());
-                                Login.putExtra("user",username.getText().toString());
                                 startActivity(Login);
                                 username.setText("");
                                 password.setText("");
@@ -144,7 +142,6 @@ public class GeneralLogin extends AppCompatActivity {
                                                 loginfound = true;
                                             } else {
                                                 Intent Login = new Intent(GeneralLogin.this, Welcomeback_chef.class);
-                                                Login.putExtra("usertype", "chef");
                                                 Login.putExtra("username",userNameToCheck);
                                                 startActivity(Login);
                                                 username.setText("");
@@ -166,7 +163,6 @@ public class GeneralLogin extends AppCompatActivity {
                                     } else {
                                         // This means the complaint has not been addressed and thus the chef is not banned
                                         Intent Login = new Intent(GeneralLogin.this, Welcomeback_chef.class);
-                                        Login.putExtra("usertype", "chef");
                                         Login.putExtra("username", username.getText().toString());
                                         startActivity(Login);
                                         username.setText("");
@@ -176,7 +172,6 @@ public class GeneralLogin extends AppCompatActivity {
                                 } else {
                                     // If there has been no complaints, the chef can log in just fine
                                     Intent Login = new Intent(GeneralLogin.this, Welcomeback_chef.class);
-                                    Login.putExtra("usertype", "chef");
                                     Login.putExtra("username", username.getText().toString());
                                     startActivity(Login);
                                     username.setText("");
