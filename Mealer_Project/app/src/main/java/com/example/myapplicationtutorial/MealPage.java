@@ -112,13 +112,14 @@ public class MealPage extends AppCompatActivity {
         final TextView descriptionText = (TextView) dialogView.findViewById(R.id.mealdescription);
 
         // Setting the text in the text views
-        mealType.setText(type);
-        mealName.setText(name);
-        cuisineType.setText(cuisine);
-        allergensText.setText(allergens);
-        ingredientsText.setText(ingredients);
-        priceText.setText(ingredients);
-        descriptionText.setText(description);
+        // Descriptor is not working for the time being, I'll worry about it later
+        mealType.setText(mealType.getText().toString() + type);
+        mealName.setText(mealName.getText().toString() + name);
+        cuisineType.setText(cuisineType.getText().toString() + cuisine);
+        allergensText.setText(allergensText.getText().toString() + allergens);
+        ingredientsText.setText(ingredientsText.getText().toString() + ingredients);
+        priceText.setText(priceText.getText().toString() + price);
+        descriptionText.setText(descriptionText.getText().toString() + description);
 
         final AlertDialog b = dialogBuilder.create();
         b.show();
