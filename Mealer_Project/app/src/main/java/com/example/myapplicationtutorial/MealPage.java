@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,17 +19,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 public class MealPage extends AppCompatActivity {
     ListView menulist;
     DatabaseReference menu_reference;
     ArrayList<Meal> meals = new ArrayList<>();
-    ArrayAdapter<Meal> adapter;
-    ImageView back;
 
 
     @Override
@@ -112,7 +106,6 @@ public class MealPage extends AppCompatActivity {
         final TextView descriptionText = (TextView) dialogView.findViewById(R.id.mealdescription);
 
         // Setting the text in the text views
-        // Descriptor is not working for the time being, I'll worry about it later
         mealType.setText(mealType.getText().toString() + type);
         mealName.setText(mealName.getText().toString() + name);
         cuisineType.setText(cuisineType.getText().toString() + cuisine);
