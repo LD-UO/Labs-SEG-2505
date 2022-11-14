@@ -24,6 +24,7 @@ public class Welcomeback_chef extends AppCompatActivity {
         ImageView logoff = (ImageView) findViewById(R.id.imageView6);
         boolean isBanned = false;
         String endDate = intent.getStringExtra("banned");
+        String username = intent.getStringExtra("username");
 
         // This means that the user is banned
         if (endDate != null){
@@ -46,6 +47,7 @@ public class Welcomeback_chef extends AppCompatActivity {
                 public void onClick(View view) {
                     //need to change this to access the menu page for a specific chef
                     Intent menu_page_intent = new Intent(Welcomeback_chef.this, MealPage.class);
+                    menu_page_intent.putExtra("Username",username);
                     startActivity(menu_page_intent);
                 }
             });

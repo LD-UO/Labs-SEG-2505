@@ -1,5 +1,6 @@
 package com.example.myapplicationtutorial;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -80,7 +81,7 @@ public class MealPage extends AppCompatActivity {
                     String ingredients = mealSnapshot.child("Ingredients").getValue(String.class);
                     String mealName = mealSnapshot.child("MealName").getValue(String.class);
                     String mealType = mealSnapshot.child("MealType").getValue(String.class);
-                    boolean onMenu = (Boolean) mealSnapshot.child("OnMenu").getValue();
+                    boolean onMenu = (boolean) mealSnapshot.child("OnMenu").getValue();
                     String price = mealSnapshot.child("Price").getValue(String.class);
                     String chefUsername = mealSnapshot.child("chefUsername").getValue(String.class);
 
@@ -128,6 +129,10 @@ public class MealPage extends AppCompatActivity {
                 EditText priceText = (EditText) dialogView.findViewById(R.id.price);
                 EditText descriptionText = (EditText) dialogView.findViewById(R.id.mealdescription);
 
+                Intent intent = getIntent();
+                String username = intent.getStringExtra("username");
+
+                addMeal(mealName.getText().toString(),mealType.getText().toString(),cuisineType.getText().toString(),allergensText.getText().toString(),priceText.getText().toString(),username,descriptionText.getText().toString(),ingredientsText.getText().toString());
             }
         });
 
@@ -179,9 +184,11 @@ public class MealPage extends AppCompatActivity {
             });
         }
 
-    private boolean addMeal(String name,String type,String cuisine, String allergens, boolean onMenu, String price, String chefUsername, String description, String ingredients) {
-        String id =
-        Meal meal = new Meal( name, type, cuisine,  allergens,  onMenu,  price,  chefUsername,  description, ingredients, id);
+    private boolean addMeal(String name,String type,String cuisine, String allergens, String price, String chefUsername, String description, String ingredients) {
+
+        Meal meal = new Meal( name, type, cuisine,  allergens,  false,  price,  chefUsername,  description, ingredients, menu_reference.push().getKey());
+        menu_reference.child(meal.getId()).setValue(meal);
+
         return true;
     }
 
