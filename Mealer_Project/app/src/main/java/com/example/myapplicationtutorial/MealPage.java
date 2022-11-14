@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -44,9 +45,11 @@ public class MealPage extends AppCompatActivity {
         menu_reference = FirebaseDatabase.getInstance().getReference("Meal");
 
         menulist = (ListView) findViewById(R.id.menu_list);
-        ImageView logoff = (ImageView) findViewById(R.id.logoffchef);
+        final ImageView logoff = (ImageView) findViewById(R.id.logoffchef);
+        final Button buttonAdd = (Button) findViewById(R.id.add_item);
 
         onItemClick();
+
 
         logoff.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +57,14 @@ public class MealPage extends AppCompatActivity {
                 finish();
             }
         });
+
+        buttonAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showAddMealDialog();
+            }
+        });
+
     }
 
     protected void onStart() {
@@ -98,10 +109,28 @@ public class MealPage extends AppCompatActivity {
         });
     }
 
+    private  void showAddMealDialog(){
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.add_to_menu_dialog, null);
+        dialogBuilder.setView(dialogView);
+
+        EditText mealType = (EditText) dialogView.findViewById(R.id.type);
+        EditText mealName = (EditText) dialogView.findViewById(R.id.name);
+        EditText cuisineType = (EditText) dialogView.findViewById(R.id.cuisine);
+        EditText allergensText = (EditText) dialogView.findViewById(R.id.allergens);
+        EditText ingredientsText = (EditText) dialogView.findViewById(R.id.ingredients);
+        EditText priceText = (EditText) dialogView.findViewById(R.id.price);
+        EditText descriptionText = (EditText) dialogView.findViewById(R.id.mealdescription);
+        Button buttonConfirm = (Button) dialogView.findViewById(R.id.buttonConfirm);
+
+        
+    }
+
     private void showViewOrDelete(Boolean onMenu, String type, String name, String cuisine, String allergens, String ingredients, String price, String description, String id) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.view_menu_dialog, null);
+        View dialogView = inflater.inflate(R.layout.view_menu_dialog, null);
         dialogBuilder.setView(dialogView);
 
         // Getting the textviews
@@ -126,20 +155,21 @@ public class MealPage extends AppCompatActivity {
 
         final AlertDialog b = dialogBuilder.create();
         b.show();
-        if (onMenu) {
             buttonDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
+                    if (!onMenu) {
                     if(deleteMeal(id)){
                         Toast.makeText(getApplicationContext(), "Meal Deleted", Toast.LENGTH_LONG).show();
                     }
                     b.dismiss();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Meal is on special menu", Toast.LENGTH_LONG).show();
+                    }
                 }
             });
-        }else{
-            Toast.makeText(getApplicationContext(), "Meal is on special menu", Toast.LENGTH_LONG).show();
         }
-    }
 
     private boolean deleteMeal(String id){
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Meal").child(id);
