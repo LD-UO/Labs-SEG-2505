@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="354b16ee-60d1-4cd0-82b8-9adb40e18add" name="Changes" comment="" />
+    <list default="true" id="354b16ee-60d1-4cd0-82b8-9adb40e18add" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Mealer_Project/app/src/main/res/drawable/untitled__229___67_px___200___67_px_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mealer_Project/.idea/deploymentTargetDropDown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Mealer_Project/.idea/deploymentTargetDropDown.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mealer_Project/app/src/main/java/com/example/myapplicationtutorial/Welcomeback_chef.java" beforeDir="false" afterPath="$PROJECT_DIR$/Mealer_Project/app/src/main/java/com/example/myapplicationtutorial/Welcomeback_chef.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mealer_Project/app/src/main/res/layout/activity_complaints_page.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Mealer_Project/app/src/main/res/layout/activity_complaints_page.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mealer_Project/app/src/main/res/layout/complaint_list.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Mealer_Project/app/src/main/res/layout/complaint_list.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mealer_Project/app/src/main/res/layout/view_complaint_diaglog.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Mealer_Project/app/src/main/res/layout/view_complaint_diaglog.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mealer_Project/app/src/main/res/layout/welcomeback_admin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Mealer_Project/app/src/main/res/layout/welcomeback_admin.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

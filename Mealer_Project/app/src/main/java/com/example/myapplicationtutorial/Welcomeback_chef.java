@@ -28,7 +28,7 @@ public class Welcomeback_chef extends AppCompatActivity {
         // This means that the user is banned
         if (endDate != null){
             isBanned = true;
-            Textview subheading = (TextView) findViewById(R.id.signedin_chefclient);
+            TextView subheading = (TextView) findViewById(R.id.signedin_chefclient);
 
             if (endDate.equals("indefinitely")){
                 subheading.setText("You have been banned indefinitely");

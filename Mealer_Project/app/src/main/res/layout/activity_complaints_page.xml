@@ -58,7 +58,7 @@
         android:background="#FFFFFF"
         android:cacheColorHint="#ECE2E2"
 
-        android:divider="#4CA3D3"
+        android:divider="@color/white"
         android:dividerHeight="0.5dp"
         android:padding="2dp"
         app:layout_constraintBottom_toBottomOf="parent"

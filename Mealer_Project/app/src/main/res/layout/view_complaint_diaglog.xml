@@ -3,22 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="300dp"
     android:background="@color/Maincolor"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="637dp"
+        android:layout_height="300dp"
         android:background="#4CA3D3">
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="78dp"
-            android:layout_marginEnd="78dp"
-            android:layout_marginBottom="240dp"
             android:fontFamily="sans-serif"
             android:text="Leave date blank for permanent ban"
             android:textAlignment="center"
@@ -26,15 +23,15 @@
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></TextView>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.875"></TextView>
 
         <Button
             android:id="@+id/buttonApprove"
             android:layout_width="150dp"
             android:layout_height="50dp"
-            android:layout_marginStart="160dp"
-            android:layout_marginBottom="360dp"
             android:layout_weight="1"
             android:backgroundTint="#FFFFFF"
             android:text="Approve"
@@ -42,28 +39,29 @@
             android:textColor="#4CA3D3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.915"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></Button>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.7"></Button>
 
         <Button
             android:id="@+id/buttonDelete"
             android:layout_width="150dp"
             android:layout_height="50dp"
-            android:layout_marginEnd="160dp"
-            android:layout_marginBottom="360dp"
             android:backgroundTint="#FEFFFF"
             android:text="Delete"
             android:textColor="#4CA3D3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.084"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></Button>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.7"></Button>
 
         <EditText
             android:id="@+id/endDate"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginBottom="580dp"
+            android:layout_width="350dp"
+            android:layout_height="146dp"
             android:backgroundTint="#FFFFFF"
             android:hint="(yyyy-mm-dd)"
             android:textAlignment="center"
@@ -71,7 +69,9 @@
             android:textColorHint="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.491"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></EditText>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.103"></EditText>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
