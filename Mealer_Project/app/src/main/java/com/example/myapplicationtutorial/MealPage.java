@@ -29,6 +29,9 @@ public class MealPage extends AppCompatActivity {
     ListView menulist;
     DatabaseReference menu_reference;
     ArrayList<Meal> meals = new ArrayList<>();
+    ArrayAdapter<Meal> adapter;
+    ImageView back;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,7 +71,7 @@ public class MealPage extends AppCompatActivity {
                     String price = mealSnapshot.child("Price").getValue(String.class);
                     String chefUsername = mealSnapshot.child("chefUsername").getValue(String.class);
 
-                    Meal meal = new Meal(mealName, mealType, cuisineType, allergens, onMenu, price, chefUsername, description, ingredients);
+                    Meal meal = new Meal(mealName, mealType, cuisineType, allergens, onMenu, price, chefUsername, description, ingredients, "tmp id");
                     meals.add(meal);
                     // We need some code in the dialog box if it's on the menu
                     MenuList menuAdapter = new MenuList(MealPage.this, meals);

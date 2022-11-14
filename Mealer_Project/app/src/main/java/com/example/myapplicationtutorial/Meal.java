@@ -13,9 +13,10 @@ public class Meal {
     private String description;
     private String ingredients;
     private boolean onMenu;
+    private String id;
 
 
-    public Meal(String name,String type,String cuisine, String allergens, boolean onMenu, String price, String chefUsername, String description, String ingredients){
+    public Meal(String name,String type,String cuisine, String allergens, boolean onMenu, String price, String chefUsername, String description, String ingredients, String id){
         this.name=name;
         this.type=type;
         this.cuisine=cuisine;
@@ -25,7 +26,7 @@ public class Meal {
         this.description = description;
         this.ingredients = ingredients;
         this.onMenu = onMenu;
-
+        this.id = id;
     }
 
     public String getName() {
@@ -60,4 +61,5 @@ public class Meal {
         return ingredients;
     }
 
+    public String getId(){return  id;}
 }
