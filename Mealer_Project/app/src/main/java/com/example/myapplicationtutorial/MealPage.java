@@ -115,16 +115,24 @@ public class MealPage extends AppCompatActivity {
         View dialogView = inflater.inflate(R.layout.add_to_menu_dialog, null);
         dialogBuilder.setView(dialogView);
 
-        EditText mealType = (EditText) dialogView.findViewById(R.id.type);
-        EditText mealName = (EditText) dialogView.findViewById(R.id.name);
-        EditText cuisineType = (EditText) dialogView.findViewById(R.id.cuisine);
-        EditText allergensText = (EditText) dialogView.findViewById(R.id.allergens);
-        EditText ingredientsText = (EditText) dialogView.findViewById(R.id.ingredients);
-        EditText priceText = (EditText) dialogView.findViewById(R.id.price);
-        EditText descriptionText = (EditText) dialogView.findViewById(R.id.mealdescription);
         Button buttonConfirm = (Button) dialogView.findViewById(R.id.buttonConfirm);
 
-        
+        buttonConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditText mealType = (EditText) dialogView.findViewById(R.id.type);
+                EditText mealName = (EditText) dialogView.findViewById(R.id.name);
+                EditText cuisineType = (EditText) dialogView.findViewById(R.id.cuisine);
+                EditText allergensText = (EditText) dialogView.findViewById(R.id.allergens);
+                EditText ingredientsText = (EditText) dialogView.findViewById(R.id.ingredients);
+                EditText priceText = (EditText) dialogView.findViewById(R.id.price);
+                EditText descriptionText = (EditText) dialogView.findViewById(R.id.mealdescription);
+
+            }
+        });
+
+        final AlertDialog b = dialogBuilder.create();
+        b.show();
     }
 
     private void showViewOrDelete(Boolean onMenu, String type, String name, String cuisine, String allergens, String ingredients, String price, String description, String id) {
@@ -170,6 +178,12 @@ public class MealPage extends AppCompatActivity {
                 }
             });
         }
+
+    private boolean addMeal(String name,String type,String cuisine, String allergens, boolean onMenu, String price, String chefUsername, String description, String ingredients) {
+        String id =
+        Meal meal = new Meal( name, type, cuisine,  allergens,  onMenu,  price,  chefUsername,  description, ingredients, id);
+        return true;
+    }
 
     private boolean deleteMeal(String id){
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Meal").child(id);
