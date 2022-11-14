@@ -4,9 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,12 +22,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class MealPage extends AppCompatActivity {
     ListView menulist;
     DatabaseReference menu_reference;
     ArrayList<Meal> meals = new ArrayList<>();
+    ArrayAdapter<Meal> adapter;
+    ImageView back;
 
 
     @Override
@@ -48,13 +56,13 @@ public class MealPage extends AppCompatActivity {
         });
     }
 
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
         menu_reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 meals.clear();
-                for (DataSnapshot mealSnapshot : snapshot.getChildren()){
+                for (DataSnapshot mealSnapshot : snapshot.getChildren()) {
                     String allergens = mealSnapshot.child("Allergens").getValue(String.class);
                     String cuisineType = mealSnapshot.child("CuisineType").getValue(String.class);
                     String description = mealSnapshot.child("Description").getValue(String.class);
@@ -80,17 +88,17 @@ public class MealPage extends AppCompatActivity {
         });
     }
 
-    private void onItemClick(){
+    private void onItemClick() {
         menulist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterview, View view, int i, long l){
+            public void onItemClick(AdapterView<?> adapterview, View view, int i, long l) {
                 Meal meal = meals.get(i);
-                showViewOrDelete(meal.getType(), meal.getName(), meal.getCuisine(), meal.getAllergens(), meal.getIngredients(), meal.getPrice(), meal.getDescription());
+                showViewOrDelete(meal.getOnMenu(), meal.getType(), meal.getName(), meal.getCuisine(), meal.getAllergens(), meal.getIngredients(), meal.getPrice(), meal.getDescription(), meal.getId());
             }
         });
     }
 
-    private void showViewOrDelete(String type, String name, String cuisine, String allergens, String ingredients, String price, String description){
+    private void showViewOrDelete(Boolean onMenu, String type, String name, String cuisine, String allergens, String ingredients, String price, String description, String id) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.view_menu_dialog, null);
@@ -104,8 +112,10 @@ public class MealPage extends AppCompatActivity {
         final TextView ingredientsText = (TextView) dialogView.findViewById(R.id.ingredients);
         final TextView priceText = (TextView) dialogView.findViewById(R.id.price);
         final TextView descriptionText = (TextView) dialogView.findViewById(R.id.mealdescription);
+        final Button buttonDelete = (Button) dialogView.findViewById(R.id.buttonDelete);
 
         // Setting the text in the text views
+        // Descriptor is not working for the time being, I'll worry about it later
         mealType.setText(mealType.getText().toString() + type);
         mealName.setText(mealName.getText().toString() + name);
         cuisineType.setText(cuisineType.getText().toString() + cuisine);
@@ -116,8 +126,26 @@ public class MealPage extends AppCompatActivity {
 
         final AlertDialog b = dialogBuilder.create();
         b.show();
+        if (onMenu) {
+            buttonDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(deleteMeal(id)){
+                        Toast.makeText(getApplicationContext(), "Meal Deleted", Toast.LENGTH_LONG).show();
+                    }
+                    b.dismiss();
+                }
+            });
+        }else{
+            Toast.makeText(getApplicationContext(), "Meal is on special menu", Toast.LENGTH_LONG).show();
+        }
     }
 
-
-
+    private boolean deleteMeal(String id){
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Meal").child(id);
+        databaseReference.removeValue();
+        return true;
+    }
 }
+
+
