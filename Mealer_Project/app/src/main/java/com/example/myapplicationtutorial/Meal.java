@@ -63,5 +63,5 @@ public class Meal {
 
     public String getId(){return  id;}
 
-    public  Boolean getOnMenu(){return onMenu}
+    public  Boolean getOnMenu(){return onMenu;}
 }
