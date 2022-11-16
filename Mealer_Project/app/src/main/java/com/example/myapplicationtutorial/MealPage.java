@@ -1,5 +1,6 @@
 package com.example.myapplicationtutorial;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -35,7 +36,6 @@ public class MealPage extends AppCompatActivity {
     ArrayList<Meal> meals = new ArrayList<>();
     ArrayAdapter<Meal> adapter;
     ImageView back;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
