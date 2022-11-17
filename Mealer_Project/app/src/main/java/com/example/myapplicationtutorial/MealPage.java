@@ -89,8 +89,9 @@ public class MealPage extends AppCompatActivity {
                     boolean onMenu = (boolean) mealSnapshot.child("onMenu").getValue();
                     String price = mealSnapshot.child("price").getValue(String.class);
                     String chefUsername = mealSnapshot.child("chefUsername").getValue(String.class);
+                    String id = mealSnapshot.child("id").getValue(String.class);
 
-                    Meal meal = new Meal(mealName, mealType, cuisineType, allergens, onMenu, price, chefUsername, description, ingredients, "tmp id");
+                    Meal meal = new Meal(mealName, mealType, cuisineType, allergens, onMenu, price, chefUsername, description, ingredients, id);
                     meals.add(meal);
                     // We need some code in the dialog box if it's on the menu
                     MenuList menuAdapter = new MenuList(MealPage.this, meals);
