@@ -142,9 +142,9 @@ public class MealPage extends AppCompatActivity {
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText mealType =null;
+                TextView mealType = (TextView) type.getSelectedView();
                 EditText mealName = (EditText) dialogView.findViewById(R.id.name);
-                EditText cuisineType =null;
+                TextView cuisineType = (TextView) cuisine.getSelectedView();
                 EditText allergensText = (EditText) dialogView.findViewById(R.id.allergens);
                 EditText ingredientsText = (EditText) dialogView.findViewById(R.id.ingredients);
                 EditText priceText = (EditText) dialogView.findViewById(R.id.price);
