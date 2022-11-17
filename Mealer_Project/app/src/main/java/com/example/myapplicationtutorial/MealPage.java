@@ -36,8 +36,6 @@ public class MealPage extends AppCompatActivity {
     ListView menulist;
     DatabaseReference menu_reference;
     ArrayList<Meal> meals = new ArrayList<>();
-    ArrayAdapter<Meal> adapter;
-    ImageView back;
     String username;
 
     @Override
@@ -55,8 +53,9 @@ public class MealPage extends AppCompatActivity {
         Intent intent = getIntent();
         username = intent.getStringExtra("username");
 
-        Log.d("usernameOnCreate", username);
+
         onItemClick();
+
 
         logoff.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,10 +93,10 @@ public class MealPage extends AppCompatActivity {
 
                     Meal meal = new Meal(mealName, mealType, cuisineType, allergens, onMenu, price, chefUsername, description, ingredients, id);
                     meals.add(meal);
-                    // We need some code in the dialog box if it's on the menu
-                    MenuList menuAdapter = new MenuList(MealPage.this, meals);
-                    menulist.setAdapter(menuAdapter);
                 }
+
+                MenuList menuAdapter = new MenuList(MealPage.this, meals);
+                menulist.setAdapter(menuAdapter);
             }
 
             @Override
@@ -117,9 +116,9 @@ public class MealPage extends AppCompatActivity {
         });
     }
 
-    private  void showAddMealDialog(){
-        String[] cuisineOptions = {"Click to Select Cuisine","Italian", "Chinese","Greek","Indian", "French", "Lebanese", "American","Mexican","Jamaican","Latin American", "Spanish", "Asian", "African"};
-        String[] mealTypeOptions = {"Click to Select Type","Main", "Soup","Dessert","Appetizer", "Side", "Beverage"};
+    private void showAddMealDialog() {
+        String[] cuisineOptions = {"Click to Select Cuisine", "Italian", "Chinese", "Greek", "Indian", "French", "Lebanese", "American", "Mexican", "Jamaican", "Latin American", "Spanish", "Asian", "African"};
+        String[] mealTypeOptions = {"Click to Select Type", "Main", "Soup", "Dessert", "Appetizer", "Side", "Beverage"};
 
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
@@ -139,6 +138,9 @@ public class MealPage extends AppCompatActivity {
         adapterType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         type.setAdapter(adapterType);
 
+        final AlertDialog b = dialogBuilder.create();
+        b.show();
+
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -149,13 +151,22 @@ public class MealPage extends AppCompatActivity {
                 EditText ingredientsText = (EditText) dialogView.findViewById(R.id.ingredients);
                 EditText priceText = (EditText) dialogView.findViewById(R.id.price);
                 EditText descriptionText = (EditText) dialogView.findViewById(R.id.mealdescription);
-
-                addMeal(mealName.getText().toString(),mealType.getText().toString(),cuisineType.getText().toString(),allergensText.getText().toString(),priceText.getText().toString(),username,descriptionText.getText().toString(),ingredientsText.getText().toString());
+                if (mealType.getText().toString() != "Click to Select Type" && cuisineType.getText().toString() != "Click to Select Cuisine"
+                        && mealName != null && ingredientsText != null && priceText != null && descriptionText != null) {
+                    if (addMeal(mealName.getText().toString(), mealType.getText().toString(), cuisineType.getText().toString(),
+                            allergensText.getText().toString(), priceText.getText().toString(), username, descriptionText.getText().toString(), ingredientsText.getText().toString())) {
+                        Toast.makeText(getApplicationContext(), "Added Meal", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Could Not Add Meal, Database Error", Toast.LENGTH_LONG).show();
+                    }
+                    b.dismiss();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Please Input Values", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
-        final AlertDialog b = dialogBuilder.create();
-        b.show();
+
     }
 
     private void showViewOrDelete(Boolean onMenu, String type, String name, String cuisine, String allergens, String ingredients, String price, String description, String id) {
@@ -173,6 +184,13 @@ public class MealPage extends AppCompatActivity {
         final TextView priceText = (TextView) dialogView.findViewById(R.id.price);
         final TextView descriptionText = (TextView) dialogView.findViewById(R.id.mealdescription);
         final Button buttonDelete = (Button) dialogView.findViewById(R.id.buttonDelete);
+        final Button buttonUpdate = (Button) dialogView.findViewById(R.id.buttonUpdateOffered);
+
+        if (onMenu){
+            buttonUpdate.setText("Remove from Offered Meals");
+        } else {
+            buttonUpdate.setText("Add to Offered Meals");
+        }
 
         // Setting the text in the text views
         // Descriptor is not working for the time being, I'll worry about it later
@@ -186,33 +204,52 @@ public class MealPage extends AppCompatActivity {
 
         final AlertDialog b = dialogBuilder.create();
         b.show();
-            buttonDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-                    if (!onMenu) {
-                    if(deleteMeal(id)){
+                if (!onMenu) {
+                    if (deleteMeal(id)) {
                         Toast.makeText(getApplicationContext(), "Meal Deleted", Toast.LENGTH_LONG).show();
-                    }else{
+
+                    } else {
                         Toast.makeText(getApplicationContext(), "Error Could Not Delete", Toast.LENGTH_LONG).show();
                     }
                     b.dismiss();
-                    }else{
-                        Toast.makeText(getApplicationContext(), "Meal is on special menu", Toast.LENGTH_LONG).show();
-                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Meal is on special menu", Toast.LENGTH_LONG).show();
                 }
-            });
-        }
+            }
+        });
 
-    private boolean addMeal(String name,String type,String cuisine, String allergens, String price, String chefUsername, String description, String ingredients) {
+        buttonUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatabaseReference dR = FirebaseDatabase.getInstance().getReference("Meal").child(id);
+                Meal meal;
+                // Need to remove it from the offered list
+                if (onMenu){
+                    meal = new Meal(name, type, cuisine, allergens, false, price, username, description, ingredients, id);
+                } else {
+                    meal = new Meal(name, type, cuisine, allergens, true, price, username, description, ingredients, id);
+                }
 
-        Meal meal = new Meal( name, type, cuisine,  allergens,  false,  price,  chefUsername,  description, ingredients, menu_reference.push().getKey());
+                dR.setValue(meal);
+                b.dismiss();
+                Toast.makeText(getApplicationContext(), "Offering updated", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private boolean addMeal(String name, String type, String cuisine, String allergens, String price, String chefUsername, String description, String ingredients) {
+
+        Meal meal = new Meal(name, type, cuisine, allergens, false, price, chefUsername, description, ingredients, menu_reference.push().getKey());
         menu_reference.child(meal.getId()).setValue(meal);
 
         return true;
     }
 
-    private boolean deleteMeal(String id){
+    private boolean deleteMeal(String id) {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Meal").child(id);
         databaseReference.removeValue();
         return true;

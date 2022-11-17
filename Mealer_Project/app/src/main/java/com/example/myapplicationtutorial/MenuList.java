@@ -26,9 +26,11 @@ public class MenuList extends ArrayAdapter<Meal>{
 //
             //TextView chefUsername = (TextView) listViewItem.findViewById(R.id.chefUsername);
             TextView name = (TextView) listViewItem.findViewById(R.id.meal_name);
+            TextView offered = (TextView) listViewItem.findViewById(R.id.isOfferedText);
             Meal meal = meals.get(position);
             //chefUsername.setText(meal.getChefUsername());
-            name.setText(meal.getName());
+            name.setText("Meal Name: " + meal.getName());
+            offered.setText("Is Offered: " + meal.getOnMenu());
 
             return listViewItem;
         }
