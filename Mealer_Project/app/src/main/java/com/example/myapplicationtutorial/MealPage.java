@@ -3,6 +3,7 @@ package com.example.myapplicationtutorial;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -36,6 +37,7 @@ public class MealPage extends AppCompatActivity {
     ArrayList<Meal> meals = new ArrayList<>();
     ArrayAdapter<Meal> adapter;
     ImageView back;
+    String username;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,8 +51,11 @@ public class MealPage extends AppCompatActivity {
         final ImageView logoff = (ImageView) findViewById(R.id.logoffchef);
         final Button buttonAdd = (Button) findViewById(R.id.add_item);
 
-        onItemClick();
+        Intent intent = getIntent();
+        username = intent.getStringExtra("username");
 
+        Log.d("usernameOnCreate", username);
+        onItemClick();
 
         logoff.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,14 +80,14 @@ public class MealPage extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 meals.clear();
                 for (DataSnapshot mealSnapshot : snapshot.getChildren()) {
-                    String allergens = mealSnapshot.child("Allergens").getValue(String.class);
-                    String cuisineType = mealSnapshot.child("CuisineType").getValue(String.class);
-                    String description = mealSnapshot.child("Description").getValue(String.class);
-                    String ingredients = mealSnapshot.child("Ingredients").getValue(String.class);
-                    String mealName = mealSnapshot.child("MealName").getValue(String.class);
-                    String mealType = mealSnapshot.child("MealType").getValue(String.class);
-                    boolean onMenu = (boolean) mealSnapshot.child("OnMenu").getValue();
-                    String price = mealSnapshot.child("Price").getValue(String.class);
+                    String allergens = mealSnapshot.child("allergens").getValue(String.class);
+                    String cuisineType = mealSnapshot.child("cuisine").getValue(String.class);
+                    String description = mealSnapshot.child("description").getValue(String.class);
+                    String ingredients = mealSnapshot.child("ingredients").getValue(String.class);
+                    String mealName = mealSnapshot.child("name").getValue(String.class);
+                    String mealType = mealSnapshot.child("type").getValue(String.class);
+                    boolean onMenu = (boolean) mealSnapshot.child("onMenu").getValue();
+                    String price = mealSnapshot.child("price").getValue(String.class);
                     String chefUsername = mealSnapshot.child("chefUsername").getValue(String.class);
 
                     Meal meal = new Meal(mealName, mealType, cuisineType, allergens, onMenu, price, chefUsername, description, ingredients, "tmp id");
@@ -129,9 +134,6 @@ public class MealPage extends AppCompatActivity {
                 EditText priceText = (EditText) dialogView.findViewById(R.id.price);
                 EditText descriptionText = (EditText) dialogView.findViewById(R.id.mealdescription);
 
-                Intent intent = getIntent();
-                String username = intent.getStringExtra("username");
-
                 addMeal(mealName.getText().toString(),mealType.getText().toString(),cuisineType.getText().toString(),allergensText.getText().toString(),priceText.getText().toString(),username,descriptionText.getText().toString(),ingredientsText.getText().toString());
             }
         });
@@ -175,6 +177,8 @@ public class MealPage extends AppCompatActivity {
                     if (!onMenu) {
                     if(deleteMeal(id)){
                         Toast.makeText(getApplicationContext(), "Meal Deleted", Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Error Could Not Delete", Toast.LENGTH_LONG).show();
                     }
                     b.dismiss();
                     }else{

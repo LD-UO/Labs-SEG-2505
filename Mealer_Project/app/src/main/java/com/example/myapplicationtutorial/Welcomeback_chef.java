@@ -47,7 +47,7 @@ public class Welcomeback_chef extends AppCompatActivity {
                 public void onClick(View view) {
                     //need to change this to access the menu page for a specific chef
                     Intent menu_page_intent = new Intent(Welcomeback_chef.this, MealPage.class);
-                    menu_page_intent.putExtra("Username",username);
+                    menu_page_intent.putExtra("username",username);
                     startActivity(menu_page_intent);
                 }
             });
