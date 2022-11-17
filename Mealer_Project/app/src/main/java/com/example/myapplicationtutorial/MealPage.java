@@ -80,6 +80,7 @@ public class MealPage extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 meals.clear();
                 for (DataSnapshot mealSnapshot : snapshot.getChildren()) {
+
                     String allergens = mealSnapshot.child("allergens").getValue(String.class);
                     String cuisineType = mealSnapshot.child("cuisine").getValue(String.class);
                     String description = mealSnapshot.child("description").getValue(String.class);
@@ -90,9 +91,11 @@ public class MealPage extends AppCompatActivity {
                     String price = mealSnapshot.child("price").getValue(String.class);
                     String chefUsername = mealSnapshot.child("chefUsername").getValue(String.class);
                     String id = mealSnapshot.child("id").getValue(String.class);
-
-                    Meal meal = new Meal(mealName, mealType, cuisineType, allergens, onMenu, price, chefUsername, description, ingredients, id);
-                    meals.add(meal);
+                    String mealUsername = mealSnapshot.child("chefUsername").getValue(String.class);
+                    if(username.equals(mealUsername)) {
+                        Meal meal = new Meal(mealName, mealType, cuisineType, allergens, onMenu, price, chefUsername, description, ingredients, id);
+                        meals.add(meal);
+                    }
                 }
 
                 MenuList menuAdapter = new MenuList(MealPage.this, meals);
