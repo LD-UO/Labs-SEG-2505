@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -117,6 +118,10 @@ public class MealPage extends AppCompatActivity {
     }
 
     private  void showAddMealDialog(){
+        String[] cuisineOptions = {"Click to Select Cuisine","Italian", "Chinese","Greek","Indian", "French", "Lebanese", "American","Mexican","Jamaican","Latin American", "Spanish", "Asian", "African"};
+        String[] mealTypeOptions = {"Click to Select Type","Main", "Soup","Dessert","Appetizer", "Side", "Beverage"};
+
+
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.add_to_menu_dialog, null);
@@ -124,12 +129,22 @@ public class MealPage extends AppCompatActivity {
 
         Button buttonConfirm = (Button) dialogView.findViewById(R.id.buttonConfirm);
 
+        Spinner cuisine = (Spinner) dialogView.findViewById(R.id.spinnerCuisine);
+        ArrayAdapter<String> adapterCuisine = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, cuisineOptions);
+        adapterCuisine.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        cuisine.setAdapter(adapterCuisine);
+
+        Spinner type = (Spinner) dialogView.findViewById(R.id.spinnerType);
+        ArrayAdapter<String> adapterType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mealTypeOptions);
+        adapterType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        type.setAdapter(adapterType);
+
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText mealType = (EditText) dialogView.findViewById(R.id.type);
+                EditText mealType =null;
                 EditText mealName = (EditText) dialogView.findViewById(R.id.name);
-                EditText cuisineType = (EditText) dialogView.findViewById(R.id.cuisine);
+                EditText cuisineType =null;
                 EditText allergensText = (EditText) dialogView.findViewById(R.id.allergens);
                 EditText ingredientsText = (EditText) dialogView.findViewById(R.id.ingredients);
                 EditText priceText = (EditText) dialogView.findViewById(R.id.price);
