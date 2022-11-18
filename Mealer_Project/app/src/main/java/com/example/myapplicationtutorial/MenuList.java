@@ -5,7 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.DrawableRes;
 
 import java.util.List;
 
@@ -26,11 +29,22 @@ public class MenuList extends ArrayAdapter<Meal>{
 //
             //TextView chefUsername = (TextView) listViewItem.findViewById(R.id.chefUsername);
             TextView name = (TextView) listViewItem.findViewById(R.id.meal_name);
+            ImageView start = (ImageView) listViewItem.findViewById(R.id.imageView15);
             TextView offered = (TextView) listViewItem.findViewById(R.id.isOfferedText);
             Meal meal = meals.get(position);
+            meal.getCuisine();
             //chefUsername.setText(meal.getChefUsername());
-            name.setText("Meal Name: " + meal.getName());
-            offered.setText("Is Offered: " + meal.getOnMenu());
+            name.setText(meal.getName());
+           if (meal.getOnMenu() == true){
+              start.setImageResource(R.drawable.star_icon);
+
+           }
+           else{
+               if(meal.getOnMenu()== false){
+                   start.setImageResource(R.drawable.x_symbol);
+               }
+           }
+            offered.setText("");
 
             return listViewItem;
         }
