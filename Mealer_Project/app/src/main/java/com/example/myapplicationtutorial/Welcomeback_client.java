@@ -24,6 +24,7 @@ import java.util.ArrayList;
 
 public class Welcomeback_client extends AppCompatActivity {
     ImageView log_off_btn;
+    Button order;
 
 
 
@@ -34,13 +35,21 @@ public class Welcomeback_client extends AppCompatActivity {
         Intent intent = getIntent();
         setContentView(R.layout.activity_welcomeback);
         log_off_btn = (ImageView) findViewById(R.id.imageView4);
-
+        order = (Button) findViewById(R.id.ordermeal);
 
         String name = intent.getStringExtra("user");
 
         TextView subheading = (TextView) findViewById(R.id.textView7);
         subheading.setText(name);
 
+
+        order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent orderMeal = new Intent(Welcomeback_client.this,  OrderMeal.class);
+                startActivity(orderMeal);
+            }
+        });
         log_off_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
