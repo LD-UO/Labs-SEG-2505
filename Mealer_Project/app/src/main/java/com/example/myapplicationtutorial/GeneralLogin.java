@@ -250,6 +250,7 @@ public class GeneralLogin extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 complaintUsername.clear();
                 complaintEndDate.clear();
+                complaintAddressed.clear();
                 for (DataSnapshot complaintShot : snapshot.getChildren()){
                     String username = complaintShot.child("chefUsername").getValue().toString();
                     String endDate = complaintShot.child("endDate").getValue().toString();

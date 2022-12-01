@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,7 +17,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 public class OrderMeal extends AppCompatActivity {
     ListView mealList;
@@ -24,14 +31,25 @@ public class OrderMeal extends AppCompatActivity {
     MenuList menuAdapter;
     SearchView searchBar;
 
+    // Need some way to check if the chef has been banned
+    DatabaseReference complaintReference;
+    List<String> bannedChefs;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState){
         getSupportActionBar();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.order_meal_page);
 
-        meal_reference = FirebaseDatabase.getInstance().getReference("Meal");
+        // This will be used as a means of specifying search criteria
+        String[] searchOptions = {"Name", "Type", "Cuisine"};
+        Spinner options = (Spinner) findViewById(R.id.searchOptions);
+        ArrayAdapter<String> adapterOptions = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, searchOptions);
+        adapterOptions.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        options.setAdapter(adapterOptions);
 
+        meal_reference = FirebaseDatabase.getInstance().getReference("Meal");
+        complaintReference= FirebaseDatabase.getInstance().getReference("Complaint");
         mealList = (ListView) findViewById(R.id.results_list);
 
         // Calling the on start method to populate the elements in the list
@@ -47,7 +65,35 @@ public class OrderMeal extends AppCompatActivity {
             @Override
             // This method takes care of updating the adapter with what values to filter
             public boolean onQueryTextChange(String s) {
-                menuAdapter.getFilter().filter(s);
+                List<Meal> filteredMeals = new ArrayList<Meal>();
+                TextView searchOption = (TextView) options.getSelectedView();
+
+                // Changing the list of meals that should be shown, should contain all the elements if the search bar is empty
+                // Should dynamically update the list being shown because the method is called on text change
+                if (searchOption.getText().toString().equals("Name")){
+                    // Name
+                    for (Meal meal : meals){
+                        if (meal.getName().contains(s)){
+                            filteredMeals.add(meal);
+                        }
+                    }
+                } else if (searchOption.getText().toString().equals("Type")){
+                    for (Meal meal : meals){
+                        if (meal.getType().contains(s)){
+                            filteredMeals.add(meal);
+                        }
+                    }
+                } else {
+                    for (Meal meal : meals){
+                        if (meal.getCuisine().contains(s)){
+                            filteredMeals.add(meal);
+                        }
+                    }
+                }
+
+                // Updating the menu adapter and setting the listview adapter to be the new one
+                menuAdapter  = new MenuList(OrderMeal.this, filteredMeals);
+                mealList.setAdapter(menuAdapter);
                 return false;
             }
         });
@@ -56,6 +102,38 @@ public class OrderMeal extends AppCompatActivity {
 
     protected void onStart(){
         super.onStart();
+
+        // This is to check if any of the chefs have been banned
+        complaintReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot complaintSnapshot : snapshot.getChildren()){
+                    String username = complaintSnapshot.child("chefUsername").getValue().toString();
+                    String endDate = complaintSnapshot.child("endDate").getValue().toString();
+
+                    // Need to check here if chef chef has been banned or not
+                    Calendar calendar = Calendar.getInstance();
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.CANADA);
+                    try {
+                        Date d1 = sdf.parse(endDate);
+                        Date d2 = sdf.parse(sdf.format(calendar.getTime()));
+                        if (d1.after(d2)){
+                            // This means that the chef is still banned, and thus no meals from the chef should show up in the search
+                            bannedChefs.add(username);
+                        }
+                    } catch (Exception e){
+                        // This means they are banned indefinitely, and thus no meals from the chef must show up in the search results
+                        bannedChefs.add(username);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         meal_reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -72,18 +150,17 @@ public class OrderMeal extends AppCompatActivity {
                     String price = mealSnapshot.child("price").getValue(String.class);
                     String chefUsername = mealSnapshot.child("chefUsername").getValue(String.class);
                     String id = mealSnapshot.child("id").getValue(String.class);
-                    String mealUsername = mealSnapshot.child("chefUsername").getValue(String.class);
-                    // Should only be visible to the client if the chef has it on their offered meals list
-                    if(onMenu) {
+
+                    // Should only add the meal to the search results if the meal is offered and the chef is not currently banned
+                    if(onMenu && bannedChefs.contains(chefUsername) == false) {
                         Meal meal = new Meal(mealName, mealType, cuisineType, allergens, onMenu, price, chefUsername, description, ingredients, id);
                         meals.add(meal);
                     }
                 }
 
-                // This might need changing, but for the time being just using the same adapter as the one that chefs use to view their meals
+                // Will need to change this adapter, just using it for testing purposes
                 menuAdapter = new MenuList(OrderMeal.this, meals);
                 mealList.setAdapter(menuAdapter);
-
             }
 
             @Override
