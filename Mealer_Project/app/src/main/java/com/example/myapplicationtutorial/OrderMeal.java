@@ -73,19 +73,21 @@ public class OrderMeal extends AppCompatActivity {
                 if (searchOption.getText().toString().equals("Name")){
                     // Name
                     for (Meal meal : meals){
-                        if (meal.getName().contains(s)){
+                        if (meal.getName().toLowerCase().contains(s.toLowerCase())){
                             filteredMeals.add(meal);
                         }
                     }
+                    // Meal type
                 } else if (searchOption.getText().toString().equals("Type")){
                     for (Meal meal : meals){
-                        if (meal.getType().contains(s)){
+                        if (meal.getType().toLowerCase().contains(s.toLowerCase())){
                             filteredMeals.add(meal);
                         }
                     }
                 } else {
+                    // Cuisine type
                     for (Meal meal : meals){
-                        if (meal.getCuisine().contains(s)){
+                        if (meal.getCuisine().toLowerCase().contains(s.toLowerCase())){
                             filteredMeals.add(meal);
                         }
                     }
