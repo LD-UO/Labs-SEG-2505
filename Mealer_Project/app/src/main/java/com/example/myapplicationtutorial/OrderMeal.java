@@ -47,7 +47,7 @@ public class OrderMeal extends AppCompatActivity {
         ArrayAdapter<String> adapterOptions = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, searchOptions);
         adapterOptions.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         options.setAdapter(adapterOptions);
-
+        bannedChefs = new ArrayList<String>();
         meal_reference = FirebaseDatabase.getInstance().getReference("Meal");
         complaintReference= FirebaseDatabase.getInstance().getReference("Complaint");
         mealList = (ListView) findViewById(R.id.results_list);
@@ -152,7 +152,7 @@ public class OrderMeal extends AppCompatActivity {
                     String id = mealSnapshot.child("id").getValue(String.class);
 
                     // Should only add the meal to the search results if the meal is offered and the chef is not currently banned
-                    if(onMenu && bannedChefs.contains(chefUsername) == false) {
+                    if(onMenu) {
                         Meal meal = new Meal(mealName, mealType, cuisineType, allergens, onMenu, price, chefUsername, description, ingredients, id);
                         meals.add(meal);
                     }
