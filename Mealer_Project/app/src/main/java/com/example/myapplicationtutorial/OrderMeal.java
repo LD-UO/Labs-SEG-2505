@@ -1,10 +1,13 @@
 package com.example.myapplicationtutorial;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Spinner;
@@ -32,6 +35,7 @@ import java.util.Locale;
 public class OrderMeal extends AppCompatActivity {
     ListView mealList;
     DatabaseReference meal_reference;
+    DatabaseReference order_reference;
     ArrayList<Meal> meals = new ArrayList<>();
     MenuList menuAdapter;
     SearchView searchBar;
@@ -39,12 +43,15 @@ public class OrderMeal extends AppCompatActivity {
     // Need some way to check if the chef has been banned
     DatabaseReference complaintReference;
     List<String> bannedChefs;
+    String clientUsername;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState){
         getSupportActionBar();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.order_meal_page);
+
+        clientUsername = getIntent().getStringExtra("username");
 
         // This will be used as a means of specifying search criteria
         String[] searchOptions = {"Name", "Type", "Cuisine"};
@@ -54,6 +61,7 @@ public class OrderMeal extends AppCompatActivity {
         options.setAdapter(adapterOptions);
         bannedChefs = new ArrayList<String>();
         meal_reference = FirebaseDatabase.getInstance().getReference("Meal");
+        order_reference = FirebaseDatabase.getInstance().getReference("Order");
         complaintReference= FirebaseDatabase.getInstance().getReference("Complaint");
         mealList = (ListView) findViewById(R.id.results_list);
 
@@ -195,9 +203,23 @@ public class OrderMeal extends AppCompatActivity {
         View dialogView = inflater.inflate(R.layout.view_meal_item, null);
         dialogBuilder.setView(dialogView);
 
+        final Button order = (Button) dialogView.findViewById(R.id.order);
+
         final AlertDialog b = dialogBuilder.create();
         b.show();
 
+        order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String id = order_reference.push().getKey();
+                Order order = new Order(clientUsername,meal, id);
+                order_reference.child(order.getId()).setValue(order);
+
+                b.dismiss();
+                Toast.makeText(getApplicationContext(), "Meal Ordered", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 }

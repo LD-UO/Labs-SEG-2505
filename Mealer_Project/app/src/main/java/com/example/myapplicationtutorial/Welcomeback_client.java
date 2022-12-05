@@ -37,7 +37,7 @@ public class Welcomeback_client extends AppCompatActivity {
         log_off_btn = (ImageView) findViewById(R.id.imageView4);
         order = (Button) findViewById(R.id.ordermeal);
 
-        String name = intent.getStringExtra("user");
+        String name = intent.getStringExtra("username");
 
         TextView subheading = (TextView) findViewById(R.id.textView7);
         subheading.setText(name);
@@ -47,6 +47,7 @@ public class Welcomeback_client extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent orderMeal = new Intent(Welcomeback_client.this,  OrderMeal.class);
+                orderMeal.putExtra("username",name);
                 startActivity(orderMeal);
             }
         });
