@@ -26,7 +26,7 @@ public class MenuList extends ArrayAdapter<Meal>{
         public View getView(int position, View convertView, ViewGroup parent){
             LayoutInflater inflater = context.getLayoutInflater();
             View listViewItem = inflater.inflate(R.layout.menu_list, null, true);
-//
+
             //TextView chefUsername = (TextView) listViewItem.findViewById(R.id.chefUsername);
             TextView name = (TextView) listViewItem.findViewById(R.id.meal_name);
             ImageView start = (ImageView) listViewItem.findViewById(R.id.imageView15);
@@ -37,7 +37,6 @@ public class MenuList extends ArrayAdapter<Meal>{
             name.setText(meal.getName());
            if (meal.getOnMenu() == true){
               start.setImageResource(R.drawable.star_icon);
-
            }
            else{
                if(meal.getOnMenu()== false){
