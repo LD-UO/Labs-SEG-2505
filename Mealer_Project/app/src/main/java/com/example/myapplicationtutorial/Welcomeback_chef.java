@@ -13,6 +13,7 @@ import org.w3c.dom.Text;
 
 public class Welcomeback_chef extends AppCompatActivity {
     Button menu_btn;
+    Button orderMenuButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +22,7 @@ public class Welcomeback_chef extends AppCompatActivity {
         setContentView(R.layout.activity_welcomeback2);
         Intent intent = getIntent();
         menu_btn = (Button) findViewById(R.id.Menu);
+        orderMenuButton = (Button)findViewById(R.id.Orders);
         ImageView logoff = (ImageView) findViewById(R.id.imageView6);
         boolean isBanned = false;
         String endDate = intent.getStringExtra("banned");
