@@ -1,14 +1,19 @@
 package com.example.myapplicationtutorial;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
@@ -51,6 +56,8 @@ public class OrderMeal extends AppCompatActivity {
         meal_reference = FirebaseDatabase.getInstance().getReference("Meal");
         complaintReference= FirebaseDatabase.getInstance().getReference("Complaint");
         mealList = (ListView) findViewById(R.id.results_list);
+
+        onItemClick();
 
         // Calling the on start method to populate the elements in the list
         onStart();
@@ -102,14 +109,14 @@ public class OrderMeal extends AppCompatActivity {
         // Need to add back functionality
     }
 
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
 
         // This is to check if any of the chefs have been banned
         complaintReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot complaintSnapshot : snapshot.getChildren()){
+                for (DataSnapshot complaintSnapshot : snapshot.getChildren()) {
                     String username = complaintSnapshot.child("chefUsername").getValue().toString();
                     String endDate = complaintSnapshot.child("endDate").getValue().toString();
 
@@ -119,11 +126,11 @@ public class OrderMeal extends AppCompatActivity {
                     try {
                         Date d1 = sdf.parse(endDate);
                         Date d2 = sdf.parse(sdf.format(calendar.getTime()));
-                        if (d1.after(d2)){
+                        if (d1.after(d2)) {
                             // This means that the chef is still banned, and thus no meals from the chef should show up in the search
                             bannedChefs.add(username);
                         }
-                    } catch (Exception e){
+                    } catch (Exception e) {
                         // This means they are banned indefinitely, and thus no meals from the chef must show up in the search results
                         bannedChefs.add(username);
                     }
@@ -154,7 +161,7 @@ public class OrderMeal extends AppCompatActivity {
                     String id = mealSnapshot.child("id").getValue(String.class);
 
                     // Should only add the meal to the search results if the meal is offered and the chef is not currently banned
-                    if(onMenu) {
+                    if (onMenu) {
                         Meal meal = new Meal(mealName, mealType, cuisineType, allergens, onMenu, price, chefUsername, description, ingredients, id);
                         meals.add(meal);
                     }
@@ -170,6 +177,27 @@ public class OrderMeal extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void onItemClick() {
+        mealList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterview, View view, int i, long l) {
+                Meal meal = meals.get(i);
+                showMealItem(meal);
+            }
+        });
+    }
+
+    private void showMealItem(Meal meal){
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.view_meal_item, null);
+        dialogBuilder.setView(dialogView);
+
+        final AlertDialog b = dialogBuilder.create();
+        b.show();
+
     }
 
 }
