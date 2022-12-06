@@ -90,7 +90,10 @@ public class OrderHistoryClient extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterview, View view, int i, long l) {
                 Order order = orders.get(i);
-
+                // Checking the conditions for rating
+                if (order.getStatus().equals("approved") && !order.isRated()){
+                    // Call the method here to open the dialog box that will allow users to rate
+                }
             }
         });
     }
