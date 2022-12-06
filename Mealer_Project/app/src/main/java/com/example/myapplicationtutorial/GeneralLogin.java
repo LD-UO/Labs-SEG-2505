@@ -234,8 +234,6 @@ public class GeneralLogin extends AppCompatActivity {
                     String password = chefShot.child("password").getValue().toString();
                     chefUsername.add(username);
                     chefPass.add(password);
-
-
                 }
             }
 

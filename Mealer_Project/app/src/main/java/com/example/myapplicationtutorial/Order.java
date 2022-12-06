@@ -49,6 +49,8 @@ public class Order{
         return rated;
     }
 
+    public void setRated(Boolean rated){this.rated=rated;}
+
     public void setStatus(String status) {
         if("approved".equals(status)||"cancelled".equals(status)){
             this.status = status;

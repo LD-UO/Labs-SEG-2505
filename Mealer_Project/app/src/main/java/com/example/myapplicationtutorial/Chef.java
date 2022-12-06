@@ -6,13 +6,13 @@ public class Chef extends User{
 
     private Boolean suspended;
     //Ratings are out of 5
-    private int totalRating;
-    private int numberOfRatings;
+    private String  totalRating;
+    private String  numberOfRatings;
 
     public Chef(String id, String username, String password,String fullname) {
         super(id,username,password,fullname);
-        this.totalRating=0;
-        this.numberOfRatings=0;
+        this.totalRating="0";
+        this.numberOfRatings="0";
         suspended = false; //starts as non suspended
     }
 
@@ -24,17 +24,12 @@ public class Chef extends User{
         suspended = x;
     }
 
-    public Float rateChef(int clientsRating){
-        if(clientsRating<1||clientsRating>5){
-            throw new IllegalArgumentException();
-        }
-        totalRating+=clientsRating;
-        numberOfRatings++;
-        return getRating();
+    public String getNumberOfRatings() {
+        return numberOfRatings;
     }
 
-    public Float getRating() {
-        return (float)totalRating/(float)numberOfRatings;
+    public String getTotalRating() {
+        return totalRating;
     }
 }
 

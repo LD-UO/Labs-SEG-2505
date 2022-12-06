@@ -1,12 +1,20 @@
 package com.example.myapplicationtutorial;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
@@ -20,9 +28,11 @@ import java.util.List;
 
 public class OrderHistoryClient extends AppCompatActivity {
     DatabaseReference order_reference;
+    DatabaseReference chef_reference;
     String clientUsername;
     ListView orderList;
     List<Order> orders;
+    String chefID;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,6 +40,7 @@ public class OrderHistoryClient extends AppCompatActivity {
         setContentView(R.layout.order_history);
         clientUsername = getIntent().getStringExtra("username");
         order_reference = FirebaseDatabase.getInstance().getReference("Order");
+        chef_reference = FirebaseDatabase.getInstance().getReference("Chef");
         orderList = (ListView) findViewById(R.id.orderHistoryList);
         orders = new ArrayList<Order>();
         onItemClick();
@@ -39,13 +50,14 @@ public class OrderHistoryClient extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
         order_reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 orders.clear();
                 for (DataSnapshot orderSnapshot : snapshot.getChildren()) {
                     String username = orderSnapshot.child("clientUsername").getValue(String.class);
-                    if (username.equals(clientUsername)){
+                    if (username.equals(clientUsername)) {
                         //Log.d("Meal", orderSnapshot.child("meal").child("chefUsername").toString());
 
                         // These are the values we will be displaying in the listview
@@ -66,7 +78,24 @@ public class OrderHistoryClient extends AppCompatActivity {
                         Meal meal = new Meal(name, type, cuisine, allergens, onMenu, price, chefUsername, description, ingredients, id);
                         Order order = new Order(username, meal, id);
 
-                        if (!status.equals("pending")){
+                        chef_reference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for (DataSnapshot chefSnapshot : snapshot.getChildren()) {
+                                    String username = chefSnapshot.child("username").getValue(String.class);
+                                    if (username.equals(chefUsername)) {
+                                        chefID = chefSnapshot.child("id").getValue(String.class);
+                                    }
+
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                        if (!status.equals("pending")) {
                             order.setStatus(status);
                         }
 
@@ -91,12 +120,64 @@ public class OrderHistoryClient extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterview, View view, int i, long l) {
                 Order order = orders.get(i);
                 // Checking the conditions for rating
-                if (order.getStatus().equals("approved") && !order.isRated()){
+                if (order.getStatus().equals("approved") && !order.isRated()) {
                     // Call the method here to open the dialog box that will allow users to rate
+                    showRate(order);
                 }
             }
         });
     }
 
+    private void showRate(Order order) {
+        String[] ratings = {"1", "2", "3", "4", "5"};
 
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.rate_chef_dialog, null);
+        dialogBuilder.setView(dialogView);
+
+        Button buttonConfirm = (Button) dialogView.findViewById(R.id.buttonConfirm);
+
+        Spinner rating = (Spinner) dialogView.findViewById(R.id.spinnerRating);
+        ArrayAdapter<String> adapterRatings = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, ratings);
+        adapterRatings.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        rating.setAdapter(adapterRatings);
+        final AlertDialog b = dialogBuilder.create();
+        b.show();
+
+        buttonConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateRating(Integer.parseInt(((TextView) rating.getSelectedView()).getText().toString()), order);
+                b.dismiss();
+            }
+        });
+    }
+
+    private void updateRating(int rating, Order order) {
+        String username = order.getChefUsername();
+        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("Chef").child(chefID).child("totalRating");
+
+
+        dR.addValueEventListener(new ValueEventListener() {
+            int totalRating;
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+               totalRating = Integer.parseInt(dataSnapshot.getValue(String.class));
+                Log.d("TEST", totalRating+"");
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
+
+        order.setRated(true);
+
+        //push order to firebase
+    }
 }
