@@ -61,9 +61,15 @@ public class OrderHistoryClient extends AppCompatActivity {
                         String id = orderSnapshot.child("meal").child("id").getValue(String.class);
                         String allergens = orderSnapshot.child("meal").child("allergens").getValue(String.class);
                         String price = orderSnapshot.child("meal").child("price").getValue(String.class);
+                        String status = orderSnapshot.child("status").getValue(String.class);
 
                         Meal meal = new Meal(name, type, cuisine, allergens, onMenu, price, chefUsername, description, ingredients, id);
                         Order order = new Order(username, meal, id);
+
+                        if (!status.equals("pending")){
+                            order.setStatus(status);
+                        }
+
                         orders.add(order);
                     }
                 }
