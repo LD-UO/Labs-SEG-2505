@@ -8,11 +8,17 @@ public class Order{
     private String id;
     private String status;
 
+    // Might need rating and rated
+    private boolean rated;
+    private double rating;
+
     public Order(String clientUsername, Meal meal, String id){
         this.clientUsername = clientUsername;
         this.meal = meal;
         this.id = id;
         this.status = "pending";
+        this.rated = false;
+        this.rating = 0.0;
     }
 
     public Meal getMeal() {
@@ -33,6 +39,14 @@ public class Order{
 
     public String getStatus() {
         return status;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public boolean isRated(){
+        return rated;
     }
 
     public void setStatus(String status) {

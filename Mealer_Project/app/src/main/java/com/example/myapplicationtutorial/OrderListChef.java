@@ -9,13 +9,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class OrderList extends ArrayAdapter<Order> {
-
+public class OrderListChef extends ArrayAdapter<Order> {
     private Activity context;
     private List<Order> orders;
 
-    public OrderList(Activity context, List<Order> orders){
-        super(context, R.layout.order_list, orders);
+    public OrderListChef(Activity context, List<Order> orders){
+        super(context, R.layout.order_list_chef, orders);
         this.context = context;
         this.orders = orders;
     }
@@ -23,18 +22,13 @@ public class OrderList extends ArrayAdapter<Order> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
         LayoutInflater inflater = context.getLayoutInflater();
-        View listViewItem = inflater.inflate(R.layout.order_list, null, true);
+        View listViewItem = inflater.inflate(R.layout.order_list_chef, null, true);
 
-        TextView name = (TextView) listViewItem.findViewById(R.id.orderHistoryName);
-        TextView status = (TextView) listViewItem.findViewById(R.id.status);
+        TextView name = (TextView) listViewItem.findViewById(R.id.ordersChef);
         Order order = orders.get(position);
 
         name.setText(order.getMeal().getName());
-        status.setText(order.getStatus());
 
         return listViewItem;
-
-
     }
-
 }

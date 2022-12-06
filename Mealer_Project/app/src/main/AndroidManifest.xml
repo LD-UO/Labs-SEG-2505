@@ -20,6 +20,13 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".OrderHistoryChef"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".WelcomebackAdminActivity"
             android:exported="false">
             <meta-data
@@ -34,7 +41,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".OrderHistory"
+            android:name=".OrderHistoryClient"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

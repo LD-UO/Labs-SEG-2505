@@ -62,7 +62,16 @@ public class Welcomeback_chef extends AppCompatActivity {
                 logoff();
             }
         });
-
+        
+        orderMenuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Intent to view the order requests
+                Intent orderHistory = new Intent(Welcomeback_chef.this, OrderHistoryChef.class);
+                orderHistory.putExtra("username", username);
+                startActivity(orderHistory);
+            }
+        });
 
     }
 

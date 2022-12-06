@@ -1,7 +1,6 @@
 package com.example.myapplicationtutorial;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -19,7 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderHistory extends AppCompatActivity {
+public class OrderHistoryClient extends AppCompatActivity {
     DatabaseReference order_reference;
     String clientUsername;
     ListView orderList;
@@ -69,7 +68,7 @@ public class OrderHistory extends AppCompatActivity {
                     }
                 }
 
-                OrderList orderAdapter = new OrderList(OrderHistory.this, orders);
+                OrderList orderAdapter = new OrderList(OrderHistoryClient.this, orders);
                 orderList.setAdapter(orderAdapter);
             }
 
