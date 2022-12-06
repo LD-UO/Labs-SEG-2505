@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -51,7 +52,7 @@ public class OrderHistoryChef extends AppCompatActivity {
                     String username = orderSnapshot.child("chefUsername").getValue(String.class);
                     if (username.equals(chefUsername)){
                         // These are the values we will be displaying in the listview
-                        String chefUsername = orderSnapshot.child("meal").child("chefUsername").getValue(String.class);
+                        String clientUsername = orderSnapshot.child("clientUsername").getValue(String.class);
                         String name = orderSnapshot.child("meal").child("name").getValue(String.class);
                         String cuisine = orderSnapshot.child("meal").child("cuisine").getValue(String.class);
                         String ingredients = orderSnapshot.child("meal").child("ingredients").getValue(String.class);
@@ -63,10 +64,14 @@ public class OrderHistoryChef extends AppCompatActivity {
                         String id = orderSnapshot.child("meal").child("id").getValue(String.class);
                         String allergens = orderSnapshot.child("meal").child("allergens").getValue(String.class);
                         String price = orderSnapshot.child("meal").child("price").getValue(String.class);
+                        String status = orderSnapshot.child("status").getValue(String.class);
 
                         Meal meal = new Meal(name, type, cuisine, allergens, onMenu, price, chefUsername, description, ingredients, id);
-                        Order order = new Order(username, meal, id);
-                        // This might need some changing
+                        Order order = new Order(clientUsername, meal, orderSnapshot.child("id").getValue(String.class));
+                        if (!status.equals("pending")) {
+                            order.setStatus(status);
+                        }
+
                         // It should only add to the list of orders if the order has not been accepted/denied by the chef
                         if (order.getStatus().equals("pending")) {
                             orders.add(order);
@@ -105,6 +110,11 @@ public class OrderHistoryChef extends AppCompatActivity {
 
         Button approveButton = (Button) dialogView.findViewById(R.id.approve_button);
         Button denyButton = (Button) dialogView.findViewById(R.id.deny_button);
+        TextView mealName = (TextView) dialogView.findViewById(R.id.approve_or_deny_name);
+        TextView clientName = (TextView) dialogView.findViewById(R.id.approve_or_deny_client_name);
+
+        mealName.setText(mealName.getText().toString() + order.getMeal().getName());
+        clientName.setText(clientName.getText().toString() + order.getClientUsername());
         DatabaseReference dR = FirebaseDatabase.getInstance().getReference("Order").child(order.getId());
 
         final AlertDialog b = dialogBuilder.create();
@@ -114,8 +124,9 @@ public class OrderHistoryChef extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // It should update the order's status in the database to be accepted
-                order.setStatus("approved");
-                dR.setValue(order);
+                Order updateOrder = new Order(order.getClientUsername(), order.getMeal(), order.getId());
+                updateOrder.setStatus("approved");
+                dR.setValue(updateOrder);
                 b.dismiss();
             }
         });
@@ -124,12 +135,14 @@ public class OrderHistoryChef extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // It should update the order's status in the database to be denied
-                order.setStatus("cancelled");
-                Log.d("ORDERSTATUS", order.getStatus());
-                dR.setValue(order);
+                Order updateOrder = new Order(order.getClientUsername(), order.getMeal(), order.getId());
+                updateOrder.setStatus("cancelled");
+                dR.setValue(updateOrder);
                 b.dismiss();
             }
         });
+
+        onStart();
     }
 
 
