@@ -53,6 +53,15 @@ public class Welcomeback_chef extends AppCompatActivity {
                     startActivity(menu_page_intent);
                 }
             });
+            orderMenuButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // Intent to view the order requests
+                    Intent orderHistory = new Intent(Welcomeback_chef.this, OrderHistoryChef.class);
+                    orderHistory.putExtra("username", username);
+                    startActivity(orderHistory);
+                }
+            });
         }
 
         // Users should be able to log off regardless of if they're banned or not
@@ -62,16 +71,8 @@ public class Welcomeback_chef extends AppCompatActivity {
                 logoff();
             }
         });
-        
-        orderMenuButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Intent to view the order requests
-                Intent orderHistory = new Intent(Welcomeback_chef.this, OrderHistoryChef.class);
-                orderHistory.putExtra("username", username);
-                startActivity(orderHistory);
-            }
-        });
+
+
 
     }
 
