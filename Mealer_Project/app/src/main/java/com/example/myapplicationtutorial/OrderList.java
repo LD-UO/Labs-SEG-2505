@@ -34,7 +34,6 @@ public class OrderList extends ArrayAdapter<Order> {
 
         return listViewItem;
 
-
     }
 
 }
