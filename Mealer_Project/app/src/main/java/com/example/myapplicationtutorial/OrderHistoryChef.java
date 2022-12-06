@@ -1,12 +1,16 @@
 package com.example.myapplicationtutorial;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
@@ -44,7 +48,7 @@ public class OrderHistoryChef extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 orders.clear();
                 for (DataSnapshot orderSnapshot : snapshot.getChildren()) {
-                    String username = orderSnapshot.child("clientUsername").getValue(String.class);
+                    String username = orderSnapshot.child("chefUsername").getValue(String.class);
                     if (username.equals(chefUsername)){
                         // These are the values we will be displaying in the listview
                         String chefUsername = orderSnapshot.child("meal").child("chefUsername").getValue(String.class);
@@ -70,7 +74,7 @@ public class OrderHistoryChef extends AppCompatActivity {
                     }
                 }
 
-                OrderList orderAdapter = new OrderList(OrderHistoryChef.this, orders);
+                OrderListChef orderAdapter = new OrderListChef(OrderHistoryChef.this, orders);
                 orderList.setAdapter(orderAdapter);
             }
 
@@ -87,10 +91,47 @@ public class OrderHistoryChef extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterview, View view, int i, long l) {
                 // Need to do something to accept or deny each order
                 Order order = orders.get(i);
+                approveOrDeleteOrder(order);
 
             }
         });
     }
+
+    private void approveOrDeleteOrder(Order order) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.approve_or_delete_order, null);
+        dialogBuilder.setView(dialogView);
+
+        Button approveButton = (Button) dialogView.findViewById(R.id.approve_button);
+        Button denyButton = (Button) dialogView.findViewById(R.id.deny_button);
+        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("Order").child(order.getId());
+
+        final AlertDialog b = dialogBuilder.create();
+        b.show();
+
+        approveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // It should update the order's status in the database to be accepted
+                order.setStatus("approved");
+                dR.setValue(order);
+                b.dismiss();
+            }
+        });
+
+        denyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // It should update the order's status in the database to be denied
+                order.setStatus("cancelled");
+                Log.d("ORDERSTATUS", order.getStatus());
+                dR.setValue(order);
+                b.dismiss();
+            }
+        });
+    }
+
 
 
 }
