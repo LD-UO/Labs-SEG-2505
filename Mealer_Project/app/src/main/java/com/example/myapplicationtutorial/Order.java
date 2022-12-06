@@ -2,7 +2,6 @@ package com.example.myapplicationtutorial;
 
 public class Order{
 
-    private String chefUsername;
     private String clientUsername;
     private Meal meal;
     private String id;
