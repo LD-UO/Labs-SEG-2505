@@ -25,19 +25,15 @@ public class ChefProfile extends AppCompatActivity {
         setContentView(R.layout.chef_profile);
         chef_reference = FirebaseDatabase.getInstance().getReference("Chef");
         chefUsername = getIntent().getStringExtra("username");
-        onStart();
-        }
+    }
 
     protected void onStart() {
         super.onStart();
         chef_reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.d("test", "test");
                 for (DataSnapshot chefSnapshot : snapshot.getChildren()
                 ) {
-                    Log.d("test", chefSnapshot.toString());
-
                     if (chefUsername.equals(chefSnapshot.child("username").getValue(String.class))) {
                         String description = chefSnapshot.child("description").getValue(String.class);
                         String fullname = chefSnapshot.child("fullname").getValue(String.class);
@@ -48,7 +44,7 @@ public class ChefProfile extends AppCompatActivity {
                         String totalRating = chefSnapshot.child("totalRating").getValue(String.class);
                         String address = chefSnapshot.child("address").getValue(String.class);
 
-                        chef = new Chef(id,chefUsername,password,fullname);
+                        chef = new Chef(id, chefUsername, password, fullname);
                         chef.setNumberOfRatings(numberOfRatings);
                         chef.setTotalRating(totalRating);
                         chef.setSuspended(suspended);
@@ -68,7 +64,8 @@ public class ChefProfile extends AppCompatActivity {
         });
     }
 
-    private void setTextViews(){
+    private void setTextViews() {
+
         TextView username = findViewById(R.id.chefUsername);
         TextView password = findViewById(R.id.chefPassword);
         TextView suspended = findViewById(R.id.chefSuspended);
@@ -84,7 +81,7 @@ public class ChefProfile extends AppCompatActivity {
         address.setText(address.getText() + chef.getAddress());
         description.setText(description.getText() + chef.getDescription());
         name.setText(name.getText() + chef.getFullname());
-        numberOfOrders.setText(numberOfOrders.getText() + chef.getNumberOfRatings() );
+        numberOfOrders.setText(numberOfOrders.getText() + chef.getNumberOfRatings());
         rating.setText(rating.getText() + (Math.round((Double.parseDouble(chef.getTotalRating()) / Double.parseDouble(chef.getNumberOfRatings()))) + ""));
 
     }
