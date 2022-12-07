@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="450dp"
-        android:text="Already Have an Account? "
+        android:text="Already Have an Account?"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,6 +46,9 @@
 
     <ImageView
         android:id="@+id/takePhoto"
+        android:clickable="true"
+
+        android:focusable="true"
         android:layout_width="349dp"
         android:layout_height="69dp"
         app:layout_constraintBottom_toBottomOf="parent"
