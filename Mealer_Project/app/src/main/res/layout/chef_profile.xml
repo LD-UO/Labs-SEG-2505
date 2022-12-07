@@ -3,85 +3,135 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background_page_1__4_">
+
+    <TableLayout
+        android:id="@+id/tableLayout2"
+        android:layout_width="423dp"
+        android:layout_height="424dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="308dp"
+        android:layout_marginBottom="259dp"
+        android:background="@color/white"
+        android:textAlignment="textStart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/chefUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="Username: "
+
+                android:textSize="16dp"></TextView>
+
+            <TextView
+                android:id="@+id/chefPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="Password: "
+                android:textSize="16dp"></TextView>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/chefSuspended"
+                android:layout_width="193dp"
+                android:layout_height="match_parent"
+                android:text="Suspended: "
+                android:textSize="16dp"></TextView>
+
+            <TextView
+                android:id="@+id/chefAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Address: "
+                android:textSize="16dp"></TextView>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/chefDescription"
+                android:layout_width="167dp"
+                android:layout_height="match_parent"
+                android:text="Description: "
+                android:textSize="16dp"></TextView>
+
+            <TextView
+                android:id="@+id/chefName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Name: "
+                android:textSize="16dp"></TextView>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/chefNumberOfOrders"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Number Of Orders: "
+                android:textSize="16dp"></TextView>
+
+            <TextView
+                android:id="@+id/chefRating"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rating: "
+                android:textSize="16dp"></TextView>
+        </TableRow>
+    </TableLayout>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="317dp"
+        android:layout_height="159dp"
+        android:layout_marginStart="37dp"
+        android:layout_marginEnd="58dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/logo_alternate__4_" />
 
     <TextView
-        android:text="Username: "
-        android:id="@+id/chefUsername"
-        android:layout_width="match_parent"
+        android:id="@+id/textView17"
+        android:layout_width="278dp"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:padding="5dp"
+        android:text="Profile"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/white"
+        android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.39"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.543"
-        tools:layout_editor_absoluteX="-16dp"></TextView>
+        app:layout_constraintVertical_bias="0.207" />
 
-    <TextView
-        android:text="Password: "
-        android:id="@+id/chefPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.609"
-        tools:layout_editor_absoluteX="0dp"></TextView>
-
-    <TextView
-        android:text="Suspended: "
-        android:id="@+id/chefSuspended"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.459"
-        tools:layout_editor_absoluteX="0dp"></TextView>
-
-    <TextView
-        android:text="Address: "
-        android:id="@+id/chefAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.393"
-        tools:layout_editor_absoluteX="0dp"></TextView>
-
-    <TextView
-        android:text="Description: "
-        android:id="@+id/chefDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.318"
-        tools:layout_editor_absoluteX="0dp"></TextView>
-
-    <TextView
-        android:text="Name: "
-        android:id="@+id/chefName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.212"
-        tools:layout_editor_absoluteX="0dp"></TextView>
-
-    <TextView
-        android:text="Number Of Orders: "
-        android:id="@+id/chefNumberOfOrders"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.105"
-        tools:layout_editor_absoluteX="-16dp"></TextView>
-
-    <TextView
-        android:text="Rating: "
-        android:id="@+id/chefRating"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.022"
-        tools:layout_editor_absoluteX="0dp"></TextView>
 </androidx.constraintlayout.widget.ConstraintLayout>

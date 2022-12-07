@@ -10,10 +10,12 @@ import android.widget.TextView;
 import java.util.List;
 
 public class OrderListChef extends ArrayAdapter<Order> {
+
     private Activity context;
     private List<Order> orders;
 
     public OrderListChef(Activity context, List<Order> orders){
+
         super(context, R.layout.order_list_chef, orders);
         this.context = context;
         this.orders = orders;
@@ -21,6 +23,7 @@ public class OrderListChef extends ArrayAdapter<Order> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
+
         LayoutInflater inflater = context.getLayoutInflater();
         View listViewItem = inflater.inflate(R.layout.order_list_chef, null, true);
 

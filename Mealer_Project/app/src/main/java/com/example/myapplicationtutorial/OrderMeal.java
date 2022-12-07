@@ -52,6 +52,7 @@ public class OrderMeal extends AppCompatActivity {
         getSupportActionBar();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.order_meal_page);
+        getSupportActionBar().hide();
 
         clientUsername = getIntent().getStringExtra("username");
 
