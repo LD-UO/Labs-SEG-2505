@@ -196,7 +196,7 @@ public class OrderHistoryClient extends AppCompatActivity {
 
         ordersChef.setTotalRating((Integer.parseInt(ordersChef.getTotalRating()) + rating) + "");
         ordersChef.setNumberOfRatings((Integer.parseInt(ordersChef.getNumberOfRatings()) + 1) + "");
-        //order.setRated(true);
+        order.setRated(true);
 
         //push to firebase
         chef_update.setValue(ordersChef);
