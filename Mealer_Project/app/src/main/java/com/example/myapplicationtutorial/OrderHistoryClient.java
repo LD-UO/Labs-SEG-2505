@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -83,7 +84,6 @@ public class OrderHistoryClient extends AppCompatActivity {
                         order.setRated(isRated);
 
 
-
                         chef_reference.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -137,7 +137,7 @@ public class OrderHistoryClient extends AppCompatActivity {
                 // Checking the conditions for rating
                 if (order.getStatus().equals("approved") && !order.isRated()) {
                     // Call the method here to open the dialog box that will allow users to rate
-                    showRate(order);
+                    rateAndComplain(order);
                 } else {
                     Toast.makeText(OrderHistoryClient.this, "You've already rated/made a complaint for this order", Toast.LENGTH_LONG).show();
                 }
@@ -145,7 +145,7 @@ public class OrderHistoryClient extends AppCompatActivity {
         });
     }
 
-    private void showRate(Order order) {
+    private void rateAndComplain(Order order) {
         String[] ratings = {"1", "2", "3", "4", "5"};
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
@@ -162,13 +162,28 @@ public class OrderHistoryClient extends AppCompatActivity {
         final AlertDialog b = dialogBuilder.create();
         b.show();
 
+        EditText complaintEditText = (EditText) findViewById(R.id.complaint);
+        String complaintDescription = complaintEditText.getText().toString().trim();
+
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 updateRating(Integer.parseInt(((TextView) rating.getSelectedView()).getText().toString()), order);
+                if (!complaintDescription.isEmpty()) {
+                    makeComplaint(complaintDescription);
+                }
                 b.dismiss();
             }
         });
+    }
+
+    private void makeComplaint(String complaintDescription) {
+        DatabaseReference dR = FirebaseDatabase.getInstance().getReference().child("Complaint");
+        String id = dR.push().getKey();
+        Complaint complaint = new Complaint(complaintDescription, ordersChef.getUsername(), "", id);
+
+        //push to firebase
+        dR.setValue(complaint);
     }
 
     private void updateRating(int rating, Order order) {
@@ -179,11 +194,8 @@ public class OrderHistoryClient extends AppCompatActivity {
         ordersChef.setNumberOfRatings((Integer.parseInt(ordersChef.getNumberOfRatings()) + 1) + "");
         order.setRated(true);
 
+        //push to firebase
         chef_update.setValue(ordersChef);
         order_update.setValue(order);
-
-
-
-        //push order to firebase
     }
 }

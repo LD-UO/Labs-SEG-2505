@@ -69,7 +69,7 @@ public class NewChef extends AppCompatActivity {
                 EditText confirmpasswordnewchef = (EditText) findViewById(R.id.confirmpasswordnewclient);
                 if (fullnamenewchef.getText().toString().trim().isEmpty() || usernamenewchef.getText().toString().trim().isEmpty() ||
                         passwordnewchef.getText().toString().trim().isEmpty() || confirmpasswordnewchef.getText().toString().trim().isEmpty()) {
-                    Log.d("TAG","Username or Password cannot be empty");
+
                     //Toast.makeText(GeneralLogin.this, "Username or Password cannot be empty", Toast.LENGTH_LONG).show();
                 } else if (passwordnewchef.getText().toString().equals(confirmpasswordnewchef.getText().toString()) == false){
                     Snackbar passwordsDontMatch = Snackbar.make(view, "Passwords do not match", Snackbar.LENGTH_LONG);

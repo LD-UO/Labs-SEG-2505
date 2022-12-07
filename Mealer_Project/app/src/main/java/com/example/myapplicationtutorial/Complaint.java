@@ -7,7 +7,6 @@ public class Complaint {
     private String id;
     boolean addressed;
 
-
     public Complaint(String description, String chefUsername,
                      String endDate, String id){
         this.description = description;
@@ -16,7 +15,6 @@ public class Complaint {
         this.id = id;
         addressed = false;
     }
-
 
     public String getChefUsername(){
         return chefUsername;
@@ -27,18 +25,13 @@ public class Complaint {
     public String getEndDate(){
         return endDate;
     }
-
     public String getId() {
         return id;
     }
-
-
     public String getDescription(){
         return description;
     }
-
     public void approve(){
         addressed=true;
     }
-
 }
