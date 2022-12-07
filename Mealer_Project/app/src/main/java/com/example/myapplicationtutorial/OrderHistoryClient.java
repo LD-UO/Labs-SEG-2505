@@ -138,7 +138,10 @@ public class OrderHistoryClient extends AppCompatActivity {
                 if (order.getStatus().equals("approved") && !order.isRated()) {
                     // Call the method here to open the dialog box that will allow users to rate
                     rateAndComplain(order);
-                } else {
+                } else if(order.getStatus().equals("pending") && !order.isRated()){
+                    Toast.makeText(OrderHistoryClient.this, "You cannot rate a pending order", Toast.LENGTH_LONG).show();
+                }
+                else {
                     Toast.makeText(OrderHistoryClient.this, "You've already rated/made a complaint for this order", Toast.LENGTH_LONG).show();
                 }
             }
@@ -162,7 +165,7 @@ public class OrderHistoryClient extends AppCompatActivity {
         final AlertDialog b = dialogBuilder.create();
         b.show();
 
-        EditText complaintEditText = (EditText) findViewById(R.id.complaint);
+        EditText complaintEditText = (EditText) dialogView.findViewById(R.id.complaint);
         String complaintDescription = complaintEditText.getText().toString().trim();
 
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
@@ -183,7 +186,7 @@ public class OrderHistoryClient extends AppCompatActivity {
         Complaint complaint = new Complaint(complaintDescription, ordersChef.getUsername(), "", id);
 
         //push to firebase
-        dR.setValue(complaint);
+        dR.child(id).setValue(complaint);
     }
 
     private void updateRating(int rating, Order order) {
