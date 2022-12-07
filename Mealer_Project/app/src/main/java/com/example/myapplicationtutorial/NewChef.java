@@ -48,7 +48,7 @@ public class NewChef extends AppCompatActivity {
         usernames = new ArrayList<String>();
 
         setContentView(R.layout.activity_newchef);
-
+        Button takePhoto = (Button)findViewById(R.id.takePhoto);
         Button loginButton = (Button)findViewById(R.id.login);
         onStart();
         TextView signininstead = (TextView) findViewById(R.id.textView15);
