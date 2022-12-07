@@ -9,6 +9,7 @@ public class Chef extends User{
     private String  totalRating;
     private String  numberOfRatings;
     private String description;
+    private String address;
 
     public Chef(String id, String username, String password,String fullname) {
         super(id,username,password,fullname);
@@ -47,6 +48,14 @@ public class Chef extends User{
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
 

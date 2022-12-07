@@ -41,7 +41,14 @@ public class Welcomeback_chef extends AppCompatActivity {
                 subheading.setText("You are banned until " + endDate);
             }
         }
-
+        profileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent chefProfile = new Intent(Welcomeback_chef.this, ChefProfile.class);
+                chefProfile.putExtra("username",username);
+                startActivity(chefProfile);
+            }
+        });
 
         // If the user is not banned, it should theoretically set the onclick listener
         if (!isBanned) {
@@ -63,13 +70,7 @@ public class Welcomeback_chef extends AppCompatActivity {
                     startActivity(orderHistory);
                 }
             });
-            profileBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent chefProfile = new Intent(Welcomeback_chef.this, ChefProfile.class);
-                    startActivity(chefProfile);
-                }
-            });
+
         }
 
         // Users should be able to log off regardless of if they're banned or not
