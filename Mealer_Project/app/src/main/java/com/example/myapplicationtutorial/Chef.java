@@ -8,6 +8,7 @@ public class Chef extends User{
     //Ratings are out of 5
     private String  totalRating;
     private String  numberOfRatings;
+    private String description;
 
     public Chef(String id, String username, String password,String fullname) {
         super(id,username,password,fullname);
@@ -38,6 +39,14 @@ public class Chef extends User{
 
     public void setTotalRating(String totalRating) {
         this.totalRating = totalRating;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
 

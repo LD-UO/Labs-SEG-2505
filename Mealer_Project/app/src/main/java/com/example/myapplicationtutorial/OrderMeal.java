@@ -36,6 +36,8 @@ public class OrderMeal extends AppCompatActivity {
     ListView mealList;
     DatabaseReference meal_reference;
     DatabaseReference order_reference;
+    DatabaseReference chef_reference;
+    Chef ordersChef;
     ArrayList<Meal> meals = new ArrayList<>();
     MenuList menuAdapter;
     SearchView searchBar;
@@ -46,7 +48,7 @@ public class OrderMeal extends AppCompatActivity {
     String clientUsername;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState){
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         getSupportActionBar();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.order_meal_page);
@@ -62,7 +64,8 @@ public class OrderMeal extends AppCompatActivity {
         bannedChefs = new ArrayList<String>();
         meal_reference = FirebaseDatabase.getInstance().getReference("Meal");
         order_reference = FirebaseDatabase.getInstance().getReference("Order");
-        complaintReference= FirebaseDatabase.getInstance().getReference("Complaint");
+        complaintReference = FirebaseDatabase.getInstance().getReference("Complaint");
+        chef_reference = FirebaseDatabase.getInstance().getReference("Chef");
         mealList = (ListView) findViewById(R.id.results_list);
 
         onItemClick();
@@ -85,31 +88,31 @@ public class OrderMeal extends AppCompatActivity {
 
                 // Changing the list of meals that should be shown, should contain all the elements if the search bar is empty
                 // Should dynamically update the list being shown because the method is called on text change
-                if (searchOption.getText().toString().equals("Name")){
+                if (searchOption.getText().toString().equals("Name")) {
                     // Name
-                    for (Meal meal : meals){
-                        if (meal.getName().toLowerCase().contains(s.toLowerCase())){
+                    for (Meal meal : meals) {
+                        if (meal.getName().toLowerCase().contains(s.toLowerCase())) {
                             filteredMeals.add(meal);
                         }
                     }
                     // Meal type
-                } else if (searchOption.getText().toString().equals("Type")){
-                    for (Meal meal : meals){
-                        if (meal.getType().toLowerCase().contains(s.toLowerCase())){
+                } else if (searchOption.getText().toString().equals("Type")) {
+                    for (Meal meal : meals) {
+                        if (meal.getType().toLowerCase().contains(s.toLowerCase())) {
                             filteredMeals.add(meal);
                         }
                     }
                 } else {
                     // Cuisine type
-                    for (Meal meal : meals){
-                        if (meal.getCuisine().toLowerCase().contains(s.toLowerCase())){
+                    for (Meal meal : meals) {
+                        if (meal.getCuisine().toLowerCase().contains(s.toLowerCase())) {
                             filteredMeals.add(meal);
                         }
                     }
                 }
 
                 // Updating the menu adapter and setting the listview adapter to be the new one
-                menuAdapter  = new MenuList(OrderMeal.this, filteredMeals);
+                menuAdapter = new MenuList(OrderMeal.this, filteredMeals);
                 mealList.setAdapter(menuAdapter);
                 return false;
             }
@@ -173,11 +176,39 @@ public class OrderMeal extends AppCompatActivity {
                         Meal meal = new Meal(mealName, mealType, cuisineType, allergens, onMenu, price, chefUsername, description, ingredients, id);
                         meals.add(meal);
                     }
-                }
+                    chef_reference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot chefSnapshot : snapshot.getChildren()) {
+                                String username = chefSnapshot.child("username").getValue(String.class);
+                                if (username.equals(chefUsername)) {
+                                    String chefID = chefSnapshot.child("id").getValue(String.class);
+                                    String orderedChefUsername = chefSnapshot.child("username").getValue(String.class);
+                                    String orderedChefPassword = chefSnapshot.child("password").getValue(String.class);
+                                    String orderedChefFullName = chefSnapshot.child("fullname").getValue(String.class);
+                                    String totalNumberRatings = chefSnapshot.child("numberOfRatings").getValue(String.class);
+                                    String orderChefDesc = chefSnapshot.child("description").getValue(String.class);
+                                    String totalRatings = chefSnapshot.child("totalRating").getValue(String.class);
 
-                // Will need to change this adapter, just using it for testing purposes
-                menuAdapter = new MenuList(OrderMeal.this, meals);
-                mealList.setAdapter(menuAdapter);
+                                    ordersChef = new Chef(chefID, orderedChefUsername, orderedChefPassword, orderedChefFullName);
+                                    ordersChef.setTotalRating(totalRatings);
+                                    ordersChef.setNumberOfRatings(totalNumberRatings);
+                                    ordersChef.setDescription(orderChefDesc);
+                                }
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                    // Will need to change this adapter, just using it for testing purposes
+                    menuAdapter = new MenuList(OrderMeal.this, meals);
+                    mealList.setAdapter(menuAdapter);
+                }
             }
 
             @Override
@@ -197,11 +228,33 @@ public class OrderMeal extends AppCompatActivity {
         });
     }
 
-    private void showMealItem(Meal meal){
+    private void showMealItem(Meal meal) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.view_meal_item, null);
         dialogBuilder.setView(dialogView);
+
+        TextView mealName = dialogView.findViewById(R.id.name);
+        TextView ingredients = dialogView.findViewById(R.id.ingredients);
+        TextView allergens = dialogView.findViewById(R.id.allergens);
+        TextView type = dialogView.findViewById(R.id.type);
+        TextView price = dialogView.findViewById(R.id.price);
+        TextView cuisine = dialogView.findViewById(R.id.cuisine);
+        TextView chefName = dialogView.findViewById(R.id.chefName);
+        TextView rating = dialogView.findViewById(R.id.rating);
+        TextView chefDescription = dialogView.findViewById(R.id.chefDescription);
+        TextView mealDescription = dialogView.findViewById(R.id.mealdescription);
+
+        mealName.setText(mealName.getText() + meal.getName());
+        ingredients.setText(ingredients.getText() + meal.getIngredients());
+        allergens.setText(allergens.getText() + meal.getAllergens());
+        type.setText(type.getText() + meal.getType());
+        price.setText(price.getText() + meal.getPrice());
+        cuisine.setText(cuisine.getText() + meal.getCuisine());
+        chefName.setText(chefName.getText() + ordersChef.getFullname());
+        rating.setText(rating.getText() + (Math.round((Double.parseDouble(ordersChef.getTotalRating()) / Double.parseDouble(ordersChef.getNumberOfRatings()))) + ""));
+        chefDescription.setText(chefDescription.getText() + ordersChef.getDescription());
+        mealDescription.setText(mealDescription.getText() + meal.getDescription());
 
         final Button order = (Button) dialogView.findViewById(R.id.order);
 
@@ -213,7 +266,7 @@ public class OrderMeal extends AppCompatActivity {
             public void onClick(View view) {
 
                 String id = order_reference.push().getKey();
-                Order order = new Order(clientUsername,meal, id);
+                Order order = new Order(clientUsername, meal, id);
                 order_reference.child(order.getId()).setValue(order);
 
                 b.dismiss();

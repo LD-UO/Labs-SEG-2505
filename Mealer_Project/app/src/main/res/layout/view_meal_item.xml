@@ -40,7 +40,7 @@
         <TableLayout
             android:id="@+id/tableLayout"
             android:layout_width="386dp"
-            android:layout_height="111dp"
+            android:layout_height="151dp"
             android:paddingLeft="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -132,6 +132,29 @@
                 android:layout_height="match_parent">
 
                 <TextView
+                    android:id="@+id/chefName"
+                    android:layout_width="227dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="sans-serif"
+                    android:text="Chef Name: "
+                    android:textAlignment="gravity"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/rating"
+                    android:layout_width="227dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="sans-serif"
+                    android:text="Rating:"
+                    android:textAlignment="gravity"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp" />
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
                     android:id="@+id/mealdescription"
                     android:layout_width="227dp"
                     android:layout_height="match_parent"
@@ -141,6 +164,15 @@
                     android:textColor="#FFFFFF"
                     android:textSize="16sp" />
             </TableRow>
+            <TextView
+                android:id="@+id/chefDescription"
+                android:layout_width="227dp"
+                android:layout_height="match_parent"
+                android:fontFamily="sans-serif"
+                android:text="Chef Description:"
+                android:textAlignment="gravity"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
 
         </TableLayout>
 
