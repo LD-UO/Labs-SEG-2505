@@ -32,7 +32,7 @@ public class OrderHistoryClient extends AppCompatActivity {
     String clientUsername;
     ListView orderList;
     List<Order> orders;
-    String chefID;
+    Chef ordersChef;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,13 +70,19 @@ public class OrderHistoryClient extends AppCompatActivity {
                         // Some miscellaneous values
                         boolean onMenu = (boolean) orderSnapshot.child("meal").child("onMenu").getValue();
                         String description = orderSnapshot.child("meal").child("description").getValue(String.class);
-                        String id = orderSnapshot.child("meal").child("id").getValue(String.class);
+                        String id = orderSnapshot.child("id").getValue(String.class);
+                        String mealId = orderSnapshot.child("meal").child("id").getValue(String.class);
                         String allergens = orderSnapshot.child("meal").child("allergens").getValue(String.class);
                         String price = orderSnapshot.child("meal").child("price").getValue(String.class);
                         String status = orderSnapshot.child("status").getValue(String.class);
+                        boolean isRated = (boolean) orderSnapshot.child("rated").getValue();
 
-                        Meal meal = new Meal(name, type, cuisine, allergens, onMenu, price, chefUsername, description, ingredients, id);
+                        Meal meal = new Meal(name, type, cuisine, allergens, onMenu, price, chefUsername, description, ingredients, mealId);
                         Order order = new Order(username, meal, id);
+
+                        order.setRated(isRated);
+
+
 
                         chef_reference.addValueEventListener(new ValueEventListener() {
                             @Override
@@ -84,7 +90,16 @@ public class OrderHistoryClient extends AppCompatActivity {
                                 for (DataSnapshot chefSnapshot : snapshot.getChildren()) {
                                     String username = chefSnapshot.child("username").getValue(String.class);
                                     if (username.equals(chefUsername)) {
-                                        chefID = chefSnapshot.child("id").getValue(String.class);
+                                        String chefID = chefSnapshot.child("id").getValue(String.class);
+                                        String orderedChefUsername = chefSnapshot.child("username").getValue(String.class);
+                                        String orderedChefPassword = chefSnapshot.child("password").getValue(String.class);
+                                        String orderedChefFullName = chefSnapshot.child("fullname").getValue(String.class);
+                                        String totalNumberRatings = chefSnapshot.child("numberOfRatings").getValue(String.class);
+                                        String totalRatings = chefSnapshot.child("totalRating").getValue(String.class);
+
+                                        ordersChef = new Chef(chefID, orderedChefUsername, orderedChefPassword, orderedChefFullName);
+                                        ordersChef.setTotalRating(totalRatings);
+                                        ordersChef.setNumberOfRatings(totalNumberRatings);
                                     }
 
                                 }
@@ -123,6 +138,8 @@ public class OrderHistoryClient extends AppCompatActivity {
                 if (order.getStatus().equals("approved") && !order.isRated()) {
                     // Call the method here to open the dialog box that will allow users to rate
                     showRate(order);
+                } else {
+                    Toast.makeText(OrderHistoryClient.this, "You've already rated/made a complaint for this order", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -155,28 +172,17 @@ public class OrderHistoryClient extends AppCompatActivity {
     }
 
     private void updateRating(int rating, Order order) {
-        String username = order.getChefUsername();
-        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("Chef").child(chefID).child("totalRating");
+        DatabaseReference chef_update = chef_reference.child(ordersChef.getId());
+        DatabaseReference order_update = order_reference.child(order.getId());
 
-
-        dR.addValueEventListener(new ValueEventListener() {
-            int totalRating;
-
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-               totalRating = Integer.parseInt(dataSnapshot.getValue(String.class));
-                Log.d("TEST", totalRating+"");
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
-
-
+        ordersChef.setTotalRating((Integer.parseInt(ordersChef.getTotalRating()) + rating) + "");
+        ordersChef.setNumberOfRatings((Integer.parseInt(ordersChef.getNumberOfRatings()) + 1) + "");
         order.setRated(true);
+
+        chef_update.setValue(ordersChef);
+        order_update.setValue(order);
+
+
 
         //push order to firebase
     }

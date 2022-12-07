@@ -102,7 +102,6 @@ public class NewChef extends AppCompatActivity {
         //Assumes chef attributes are correct
 
         Chef newChef = new Chef(databaseReference.push().getKey(),username,password,fullname);
-        Log.d("TEST", newChef.getNumberOfRatings()+"");
         databaseReference.child(newChef.getId()).setValue(newChef);
     }
 

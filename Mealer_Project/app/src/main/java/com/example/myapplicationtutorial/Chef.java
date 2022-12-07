@@ -31,5 +31,13 @@ public class Chef extends User{
     public String getTotalRating() {
         return totalRating;
     }
+
+    public void setNumberOfRatings(String numberOfRatings) {
+        this.numberOfRatings = numberOfRatings;
+    }
+
+    public void setTotalRating(String totalRating) {
+        this.totalRating = totalRating;
+    }
 }
 
