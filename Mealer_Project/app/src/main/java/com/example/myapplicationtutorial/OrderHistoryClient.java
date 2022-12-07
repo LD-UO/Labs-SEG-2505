@@ -165,12 +165,13 @@ public class OrderHistoryClient extends AppCompatActivity {
         final AlertDialog b = dialogBuilder.create();
         b.show();
 
-        EditText complaintEditText = (EditText) dialogView.findViewById(R.id.complaint);
-        String complaintDescription = complaintEditText.getText().toString().trim();
-
         buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                EditText complaintEditText = (EditText) dialogView.findViewById(R.id.complaint);
+                String complaintDescription = complaintEditText.getText().toString().trim();
+
                 updateRating(Integer.parseInt(((TextView) rating.getSelectedView()).getText().toString()), order);
                 if (!complaintDescription.isEmpty()) {
                     makeComplaint(complaintDescription);
@@ -195,7 +196,7 @@ public class OrderHistoryClient extends AppCompatActivity {
 
         ordersChef.setTotalRating((Integer.parseInt(ordersChef.getTotalRating()) + rating) + "");
         ordersChef.setNumberOfRatings((Integer.parseInt(ordersChef.getNumberOfRatings()) + 1) + "");
-        order.setRated(true);
+        //order.setRated(true);
 
         //push to firebase
         chef_update.setValue(ordersChef);
