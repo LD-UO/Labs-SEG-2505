@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -45,6 +46,14 @@ public class OrderHistoryClient extends AppCompatActivity {
         chef_reference = FirebaseDatabase.getInstance().getReference("Chef");
         orderList = (ListView) findViewById(R.id.orderHistoryList);
         orders = new ArrayList<Order>();
+        ImageView backButton = (ImageView) findViewById(R.id.logoffchef2);
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         onItemClick();
         onStart();
     }

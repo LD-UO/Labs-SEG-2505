@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -38,6 +39,14 @@ public class OrderHistoryChef extends AppCompatActivity {
         order_reference = FirebaseDatabase.getInstance().getReference("Order");
         orderList = (ListView) findViewById(R.id.orderHistoryList);
         orders = new ArrayList<Order>();
+        ImageView logoffButton = (ImageView) findViewById(R.id.logoffchef2);
+
+        logoffButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         onItemClick();
         onStart();
     }

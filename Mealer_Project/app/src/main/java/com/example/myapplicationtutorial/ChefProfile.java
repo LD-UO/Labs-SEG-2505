@@ -2,6 +2,8 @@ package com.example.myapplicationtutorial;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,6 +27,15 @@ public class ChefProfile extends AppCompatActivity {
         setContentView(R.layout.chef_profile);
         chef_reference = FirebaseDatabase.getInstance().getReference("Chef");
         chefUsername = getIntent().getStringExtra("username");
+        ImageView logoffButton = (ImageView) findViewById(R.id.imageView17);
+
+        logoffButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
     }
 
     protected void onStart() {

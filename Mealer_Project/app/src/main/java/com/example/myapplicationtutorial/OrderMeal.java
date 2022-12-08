@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Spinner;
@@ -68,6 +69,15 @@ public class OrderMeal extends AppCompatActivity {
         complaintReference = FirebaseDatabase.getInstance().getReference("Complaint");
         chef_reference = FirebaseDatabase.getInstance().getReference("Chef");
         mealList = (ListView) findViewById(R.id.results_list);
+
+        ImageView logoffButton = (ImageView) findViewById(R.id.imageView16);
+
+        logoffButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         onItemClick();
 
