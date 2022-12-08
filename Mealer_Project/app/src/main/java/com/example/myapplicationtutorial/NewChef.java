@@ -88,7 +88,7 @@ public class NewChef extends AppCompatActivity {
                 EditText confirmpasswordnewchef = (EditText) findViewById(R.id.confirmpasswordnewclient);
                 EditText description = (EditText)findViewById(R.id.chefDescription);
                 EditText address = (EditText)findViewById(R.id.chefAddress);
-                if (fullnamenewchef.getText().toString().trim().isEmpty() || usernamenewchef.getText().toString().trim().isEmpty() ||
+                if (takePhoto.getDrawable()!=null||fullnamenewchef.getText().toString().trim().isEmpty() || usernamenewchef.getText().toString().trim().isEmpty() ||
                         passwordnewchef.getText().toString().trim().isEmpty() || confirmpasswordnewchef.getText().toString().trim().isEmpty()
                         ||description.getText().toString().trim().isEmpty()||address.getText().toString().trim().isEmpty()) {
 

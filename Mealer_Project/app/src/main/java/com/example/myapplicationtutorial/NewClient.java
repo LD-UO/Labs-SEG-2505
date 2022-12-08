@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
@@ -34,6 +35,8 @@ public class NewClient extends AppCompatActivity {
     private String username;
     private String password;
     private String fullname;
+    private String addressString;
+    private String creditInfoString;
     List<String> usernames;
 
     @Override
@@ -67,10 +70,12 @@ public class NewClient extends AppCompatActivity {
                 EditText usernamenewclient = (EditText) findViewById(R.id.usernamenewclient);
                 EditText passwordnewclient = (EditText) findViewById(R.id.passwordnewclient);
                 EditText confirmpasswordnewclient = (EditText) findViewById(R.id.confirmpasswordnewclient);
-                if (fullnamenewclient.getText().toString().trim().isEmpty() || usernamenewclient.getText().toString().trim().isEmpty() ||
+                EditText creditInfo = (EditText) findViewById(R.id.creditCard);
+                EditText address = (EditText) findViewById(R.id.clientAddress);
+
+                if (address.getText().toString().trim().isEmpty()||creditInfo.getText().toString().trim().isEmpty()||fullnamenewclient.getText().toString().trim().isEmpty() || usernamenewclient.getText().toString().trim().isEmpty() ||
                         passwordnewclient.getText().toString().trim().isEmpty() || confirmpasswordnewclient.getText().toString().trim().isEmpty()) {
-                    Log.d("TAG","Username or Password cannot be empty");
-                    //Toast.makeText(GeneralLogin.this, "Username or Password cannot be empty", Toast.LENGTH_LONG).show();
+                    Toast.makeText(NewClient.this, "Username or Password cannot be empty", Toast.LENGTH_LONG).show();
                 } else if (passwordnewclient.getText().toString().equals(confirmpasswordnewclient.getText().toString()) == false){
                     Snackbar passwordsDontMatch = Snackbar.make(view, "Passwords do not match", Snackbar.LENGTH_LONG);
                     passwordsDontMatch.show();
@@ -79,6 +84,8 @@ public class NewClient extends AppCompatActivity {
                     username = usernamenewclient.getText().toString().trim();
                     password = passwordnewclient.getText().toString().trim();
                     fullname = fullnamenewclient.getText().toString().trim();
+                    addressString = address.getText().toString().trim();
+                    creditInfoString = creditInfo.getText().toString().trim();
                     boolean addData = true;
                     for (int i = 0; i < usernames.size(); i++){
                         if (username.equals(usernames.get(i))){
@@ -102,7 +109,8 @@ public class NewClient extends AppCompatActivity {
         //Assumes chef attributes are correct
 
         Client newClient = new Client(databaseReference.push().getKey(),username,password,fullname);
-
+        newClient.setCreditInfo(creditInfoString);
+        newClient.setAddress(addressString);
         databaseReference.child(newClient.getId()).setValue(newClient);
     }
 

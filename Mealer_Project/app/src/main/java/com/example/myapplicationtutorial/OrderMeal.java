@@ -200,11 +200,12 @@ public class OrderMeal extends AppCompatActivity {
                                     String totalNumberRatings = chefSnapshot.child("numberOfRatings").getValue(String.class);
                                     String orderChefDesc = chefSnapshot.child("description").getValue(String.class);
                                     String totalRatings = chefSnapshot.child("totalRating").getValue(String.class);
-
+                                    String address = chefSnapshot.child("address").getValue(String.class);
                                     ordersChef = new Chef(chefID, orderedChefUsername, orderedChefPassword, orderedChefFullName);
                                     ordersChef.setTotalRating(totalRatings);
                                     ordersChef.setNumberOfRatings(totalNumberRatings);
                                     ordersChef.setDescription(orderChefDesc);
+                                    ordersChef.setAddress(address);
                                 }
 
                             }
@@ -255,6 +256,7 @@ public class OrderMeal extends AppCompatActivity {
         TextView rating = dialogView.findViewById(R.id.rating);
         TextView chefDescription = dialogView.findViewById(R.id.chefDescription);
         TextView mealDescription = dialogView.findViewById(R.id.mealdescription);
+        TextView chefAddress = dialogView.findViewById(R.id.chefAddress);
 
         mealName.setText(mealName.getText() + meal.getName());
         ingredients.setText(ingredients.getText() + meal.getIngredients());
@@ -266,6 +268,7 @@ public class OrderMeal extends AppCompatActivity {
         rating.setText(rating.getText() + (Math.round((Double.parseDouble(ordersChef.getTotalRating()) / Double.parseDouble(ordersChef.getNumberOfRatings()))) + ""));
         chefDescription.setText(chefDescription.getText() + ordersChef.getDescription());
         mealDescription.setText(mealDescription.getText() + meal.getDescription());
+        chefAddress.setText(chefAddress.getText() + ordersChef.getAddress());
 
         final Button order = (Button) dialogView.findViewById(R.id.order);
 
