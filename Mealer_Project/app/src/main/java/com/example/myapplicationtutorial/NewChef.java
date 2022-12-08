@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,7 +41,7 @@ public class NewChef extends AppCompatActivity {
     private String fullname;
     List<String> usernames;
 
-    private ImageView takePhoto;
+    private ImageButton takePhoto;
 
 
     @Override
@@ -56,7 +57,7 @@ public class NewChef extends AppCompatActivity {
         usernames = new ArrayList<String>();
 
         setContentView(R.layout.activity_newchef);
-        takePhoto = (ImageView) findViewById(R.id.takePhoto);
+        takePhoto = (ImageButton) findViewById(R.id.takePhoto);
         Button loginButton = (Button)findViewById(R.id.login);
         onStart();
         TextView signininstead = (TextView) findViewById(R.id.textView15);
@@ -85,10 +86,13 @@ public class NewChef extends AppCompatActivity {
                 EditText usernamenewchef = (EditText) findViewById(R.id.usernamenewclient);
                 EditText passwordnewchef = (EditText) findViewById(R.id.passwordnewclient);
                 EditText confirmpasswordnewchef = (EditText) findViewById(R.id.confirmpasswordnewclient);
+                EditText description = (EditText)findViewById(R.id.chefDescription);
+                EditText address = (EditText)findViewById(R.id.chefAddress);
                 if (fullnamenewchef.getText().toString().trim().isEmpty() || usernamenewchef.getText().toString().trim().isEmpty() ||
-                        passwordnewchef.getText().toString().trim().isEmpty() || confirmpasswordnewchef.getText().toString().trim().isEmpty()) {
+                        passwordnewchef.getText().toString().trim().isEmpty() || confirmpasswordnewchef.getText().toString().trim().isEmpty()
+                        ||description.getText().toString().trim().isEmpty()||address.getText().toString().trim().isEmpty()) {
 
-                    //Toast.makeText(GeneralLogin.this, "Username or Password cannot be empty", Toast.LENGTH_LONG).show();
+                    Toast.makeText(NewChef.this, "Username or Password cannot be empty", Toast.LENGTH_LONG).show();
                 } else if (passwordnewchef.getText().toString().equals(confirmpasswordnewchef.getText().toString()) == false){
                     Snackbar passwordsDontMatch = Snackbar.make(view, "Passwords do not match", Snackbar.LENGTH_LONG);
                     passwordsDontMatch.show();
@@ -108,7 +112,7 @@ public class NewChef extends AppCompatActivity {
                     }
 
                     if (addData) {
-                        uploadData();
+                        uploadData(description.getText().toString(), address.getText().toString());
                         finish();
                     }
 
@@ -116,10 +120,12 @@ public class NewChef extends AppCompatActivity {
             }
         });
     }
-    protected void uploadData(){
+    protected void uploadData(String description, String address){
         //Assumes chef attributes are correct
 
         Chef newChef = new Chef(databaseReference.push().getKey(),username,password,fullname);
+        newChef.setDescription(description);
+        newChef.setAddress(address);
         databaseReference.child(newChef.getId()).setValue(newChef);
     }
 
@@ -199,7 +205,6 @@ public class NewChef extends AppCompatActivity {
                     Uri selectedImage = imageReturnedIntent.getData();
                     takePhoto.setImageURI(selectedImage);
                 }
-
                 break;
             case 1:
                 if(resultCode == RESULT_OK){
