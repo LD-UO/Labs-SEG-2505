@@ -153,7 +153,7 @@ public class MealPage extends AppCompatActivity {
                 EditText priceText = (EditText) dialogView.findViewById(R.id.price);
                 EditText descriptionText = (EditText) dialogView.findViewById(R.id.mealdescription);
                 if (mealType.getText().toString() != "Click to Select Type" && cuisineType.getText().toString() != "Click to Select Cuisine"
-                        && mealName != null && ingredientsText != null && priceText != null && descriptionText != null) {
+                        && !mealName.getText().toString().isEmpty() && !ingredientsText.getText().toString().isEmpty() && !priceText.getText().toString().isEmpty() && !descriptionText.getText().toString().isEmpty()) {
                     if (addMeal(mealName.getText().toString(), mealType.getText().toString(), cuisineType.getText().toString(),
                             allergensText.getText().toString(), priceText.getText().toString(), username, descriptionText.getText().toString(), ingredientsText.getText().toString())) {
                         Toast.makeText(getApplicationContext(), "Added Meal", Toast.LENGTH_LONG).show();
