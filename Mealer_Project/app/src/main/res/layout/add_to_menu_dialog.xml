@@ -17,23 +17,28 @@ android:orientation="vertical">
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="52dp"
+            android:minHeight="48dp"
             app:layout_constraintBottom_toTopOf="@+id/name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="1.0"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <Spinner
             android:id="@+id/spinnerCuisine"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="68dp"
+            android:minHeight="48dp"
             app:layout_constraintBottom_toTopOf="@+id/spinnerType"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <EditText
             android:id="@+id/name"

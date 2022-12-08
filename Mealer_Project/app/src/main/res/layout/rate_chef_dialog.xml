@@ -36,8 +36,8 @@
 
         <EditText
             android:id="@+id/complaint"
-            android:layout_width="396dp"
-            android:layout_height="72dp"
+            android:layout_width="327dp"
+            android:layout_height="68dp"
             android:layout_marginTop="41dp"
             android:layout_marginBottom="252dp"
             android:ems="10"

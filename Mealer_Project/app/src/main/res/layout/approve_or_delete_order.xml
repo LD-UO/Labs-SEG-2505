@@ -13,30 +13,37 @@
         android:text="Approve"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.222"
+        app:layout_constraintHorizontal_bias="0.164"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/approve_or_deny_name"
-        app:layout_constraintVertical_bias="0.874" />
+        app:layout_constraintVertical_bias="0.615" />
 
     <TextView
         android:id="@+id/approve_or_deny_client_name"
-        android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_width="324dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="10dp"
         android:text="Order Made By:"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.545"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.502"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintVertical_bias="0.358" />
 
     <TextView
         android:id="@+id/approve_or_deny_name"
-        android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_width="338dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="10dp"
         android:text="Meal: "
         app:layout_constraintBottom_toTopOf="@+id/approve_or_deny_client_name"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.673" />
 
     <Button
         android:id="@+id/deny_button"
@@ -46,8 +53,7 @@
         android:text="Deny"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.339"
         app:layout_constraintStart_toEndOf="@+id/approve_button"
         app:layout_constraintTop_toBottomOf="@+id/approve_or_deny_name"
-        app:layout_constraintVertical_bias="0.874" />
+        app:layout_constraintVertical_bias="0.615" />
 </androidx.constraintlayout.widget.ConstraintLayout>

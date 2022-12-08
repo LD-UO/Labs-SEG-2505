@@ -38,6 +38,7 @@ public class OrderHistoryClient extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.order_history);
         clientUsername = getIntent().getStringExtra("username");
         order_reference = FirebaseDatabase.getInstance().getReference("Order");
@@ -51,6 +52,7 @@ public class OrderHistoryClient extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
 
         order_reference.addValueEventListener(new ValueEventListener() {
             @Override

@@ -31,6 +31,7 @@ public class OrderHistoryChef extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        getSupportActionBar().hide();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.order_history);
         chefUsername = getIntent().getStringExtra("username");

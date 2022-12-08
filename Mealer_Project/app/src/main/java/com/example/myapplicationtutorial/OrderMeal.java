@@ -39,7 +39,7 @@ public class OrderMeal extends AppCompatActivity {
     DatabaseReference chef_reference;
     Chef ordersChef;
     ArrayList<Meal> meals = new ArrayList<>();
-    MenuList menuAdapter;
+    MenuListAlt menuAdapter;
     SearchView searchBar;
 
     // Need some way to check if the chef has been banned
@@ -113,7 +113,7 @@ public class OrderMeal extends AppCompatActivity {
                 }
 
                 // Updating the menu adapter and setting the listview adapter to be the new one
-                menuAdapter = new MenuList(OrderMeal.this, filteredMeals);
+                menuAdapter = new MenuListAlt(OrderMeal.this, filteredMeals);
                 mealList.setAdapter(menuAdapter);
                 return false;
             }
@@ -207,7 +207,7 @@ public class OrderMeal extends AppCompatActivity {
                     });
 
                     // Will need to change this adapter, just using it for testing purposes
-                    menuAdapter = new MenuList(OrderMeal.this, meals);
+                    menuAdapter = new MenuListAlt(OrderMeal.this, meals);
                     mealList.setAdapter(menuAdapter);
                 }
             }
